@@ -1007,15 +1007,9 @@ carefully planted in the ground.`
         updateContent();
     }
 
-    // 🚀 ページ読み込み時の初期動作
+   // 🚀 ページ読み込み時の初期動作
     document.addEventListener('DOMContentLoaded', () => {
-        // ※実際のファイルで使用する際は、物語テキストの長い文字列をそのまま残してください。
-        // ここでは見やすさのため一部省略していますが、一括コピー用の完全版テキストデータを保持しています。
-        langData.ja.storyText = `　鬼がいた。\n鬼はたまに町におりた。\n...（省略された部分は元の日本語テキストが自動展開されます）`;
-        langData.en.storyText = `There was an ogre.\nSometimes, the ogre came down to the town.\n...（省略された部分は元の英語テキストが自動展開されます）`;
-        
-        // 読込時に実際のテキストが壊れないよう、最初のリファレンスデータを復元して実行します
-        setLanguage('ja'); 
+        setLanguage('ja'); // 最初は日本語に設定
     });
 </script>
 
