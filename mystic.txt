@@ -326,7 +326,7 @@
 
 <script>
     // 状態管理
-    let currentLang = 'ja';
+    let currentLang = 'en';
     let currentSlideIndex = 0;
 
     // 🖼️ 絵本スライドの画像ファイル名リスト（.png に一括修正）
@@ -1009,7 +1009,7 @@ carefully planted in the ground.`
 
    // 🚀 ページ読み込み時の初期動作
     document.addEventListener('DOMContentLoaded', () => {
-        setLanguage('ja'); // 最初は日本語に設定
+        setLanguage('en'); // 最初はenglishに設定
     });
 </script>
 

@@ -223,7 +223,7 @@
 
 <script>
     // 1行の記述の簡略化とデータ管理
-    let currentLang = 'ja';
+    let currentLang = 'en';
     let currentTab = '1';
 
     const langData = {
