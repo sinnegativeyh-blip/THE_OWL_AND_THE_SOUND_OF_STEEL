@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sanctuary on the Hill - ふくろうはあの鋼の音を聞いたか</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --text-color: #cbd5e1;
+            --mystic-color: #8b5cf6; /* 山の上のすみか用の神秘的な紫 */
+            --mystic-glow: rgba(139, 92, 246, 0.4);
+            --card-bg: #1a202c;
+            --border-color: #2d3748;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+            line-height: 1.9;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom, #1e1b4b, var(--bg-color));
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            text-shadow: 0 0 15px var(--mystic-glow);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #a78bfa;
+            margin: 0;
+        }
+
+        .lang-switch {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .lang-btn {
+            background-color: #111827;
+            color: #9ca3af;
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            border-color: var(--mystic-color);
+            color: #ffffff;
+            background-color: var(--mystic-color);
+            box-shadow: 0 0 10px var(--mystic-glow);
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .back-btn {
+            background-color: #111827;
+            color: #cbd5e1;
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            color: #ffffff;
+            border-color: var(--mystic-color);
+            box-shadow: 0 0 10px var(--mystic-glow);
+        }
+
+        .content-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .sub-section-title {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-section-title::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--mystic-color);
+            border-radius: 2px;
+        }
+
+        /* 🎬 動画エリアのスタイル */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background-color: #000;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 50px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* 🖼️ 絵本スライドエリアのスタイル */
+        .slide-container {
+            background-color: #111827;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .slide-image-wrapper {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            position: relative;
+            background-color: #000;
+            border-radius: 6px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .slide-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .slide-btn {
+            background-color: var(--card-bg);
+            color: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .slide-btn:hover {
+            border-color: var(--mystic-color);
+            background-color: #1e1b4b;
+        }
+
+        .fullscreen-btn {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: var(--mystic-color);
+            border-color: var(--mystic-color);
+        }
+
+        .slide-counter {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #9ca3af;
+            min-width: 60px;
+        }
+
+        /* 📱 全画面表示（フルスクリーン）時の専用スタイル */
+        .slide-container:fullscreen {
+            background-color: #000000;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-container:fullscreen .slide-image-wrapper {
+            max-width: 100%;
+            height: calc(100vh - 100px); /* コントロール用の余白を確保 */
+            margin-bottom: 10px;
+            border-radius: 0;
+            border: none;
+        }
+
+        .slide-container:fullscreen .slide-controls {
+            width: 100%;
+            padding: 15px 0;
+            background-color: rgba(17, 24, 39, 0.9);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 9999;
+        }
+
+        /* 📖 テキストエリアのスタイル */
+        .story-text {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #111827;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 id="header-title">山の上の小さなすみか</h1>
+    <p class="subtitle" id="header-subtitle">特別閲覧室</p>
+    <div class="lang-switch">
+        <button id="btn-ja" class="lang-btn" onclick="setLanguage('ja')">日本語</button>
+        <button id="btn-en" class="lang-btn" onclick="setLanguage('en')">English</button>
+    </div>
+</header>
+
+<main>
+    <div class="nav-container">
+        <a href="index.html" class="back-btn" id="back-btn">メインページに戻る</a>
+    </div>
+
+    <section class="content-section">
+        <h3 class="sub-section-title" id="title-video">動画</h3>
+        <div class="video-container">
+            <iframe id="mystic-video" src="" allowfullscreen></iframe>
+        </div>
+
+        <h3 class="sub-section-title" id="title-slide">絵本スライド</h3>
+        <!-- 👇 このコンテナごと全画面表示化します -->
+        <div class="slide-container" id="slide-container">
+            <div class="slide-image-wrapper">
+                <img id="slide-img" src="" alt="絵本スライド" class="slide-img">
+            </div>
+            <div class="slide-controls">
+                <button class="slide-btn" onclick="changeSlide(-1)" id="btn-prev">前へ</button>
+                <span class="slide-counter" id="slide-counter">1 / 15</span>
+                <button class="slide-btn" onclick="changeSlide(1)" id="btn-next">次へ</button>
+                <button class="fullscreen-btn" onclick="toggleFullscreen()" id="btn-fullscreen">⛶ 全画面</button>
+            </div>
+        </div>
+
+        <h3 class="sub-section-title" id="title-story">物語 本編</h3>
+        <div class="story-text" id="story-text"></div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; ふくろうはあの鋼の音を聞いたか 特設サイト</p>
+</footer>
+
+<script>
+    // 状態管理
+    let currentLang = 'ja';
+    let currentSlideIndex = 0;
+
+    // 🖼️ 絵本スライドの画像ファイル名リスト（.png に一括修正）
+    const slideImages = [
+        "01.png",
+        "02.png",
+        "03.png",
+        "04.png",
+        "05.png",
+        "06.png",
+        "07.png",
+        "08.png",
+        "09.png",
+        "10.png",
+        "11.png",
+        "12.png",
+        "13.png",
+        "14.png",
+        "15.png"
+    ];
+
+    // 📖 多言語データ一括管理
+    const langData = {
+        ja: {
+            title: "山の上の小さなすみか",
+            subtitle: "特別閲覧室",
+            backBtn: "メインページに戻る",
+            videoTitle: "動画",
+            slideTitle: "絵本スライド",
+            storyTitle: "物語 本編",
+            prevBtn: "前へ",
+            nextBtn: "次へ",
+            fullscreenBtn: "⛶ 全画面",
+            exitFullscreenBtn: "🗙 閉じる",
+            videoCode: "72V8dDX72mc",
+            storyText: `鬼がいた。
+鬼はたまに町におりた。
+わるさをするでなく、ただたたずみ見て歩いた。
+町の人は鬼をこわがり、家の中に入って戸をしめ、
+かげからじっと鬼が帰るのを待った。
+
+
+鬼は小高い山の上にいた。
+木と土と草でできたすみかには、
+いろりがあって、
+水をためるかめが土間にあり、
+土のかべに光と風のよく入る
+まるい窓があいていた。
+
+すみかのうしろには森と竹林、
+その中には小川が流れ、
+おもては少しひらけていて、
+鬼はそこから摘んできたものや、
+川でとった魚などを食べていた。
+
+
+
+ある日、町からおとこがやってきた。
+
+おとこは鬼をたいじするために来たと言う。
+鬼はおとこに向かってこう言った。
+
+「オレはお前を一口で食べてしまうことができる。
+お前のそのかたなもてっぽうもまるごとだ。
+そうなる前に町に帰りなさい。」
+
+おとこは身がまえながらこう言った。
+「鬼をたいじしないと帰れない、町の人のみんなは鬼がおろしくて、
+たいじして帰る私を今か今かと待っているのだ」
+
+鬼はすぐさま表情をがらせてわるかったとあやまった。してこう続けた。
+「戻って鬼をたいじしたと言いなさい、
+オレのこの首飾りを持っていけばみな信じるだろう。
+オレは二度と町にはおりないし、決して姿を見せないと約束しよう。」
+
+
+おとこはしばらく考えた。
+
+鬼はつけくわえてこう言った。
+「鬼がいなくなって、このあたりにはタタリがおきる。
+だれも近よってはならない。そうみなに伝えるのだ。」
+
+おとこはゆっくりうなずいた。
+おとこはそのまま何も言わず、
+ふりかえってふらふらとした足どりで帰っていった。
+
+
+ある日、鬼は森を歩いていた。
+
+ふと目をやると、何か置いてあるのがわかった。
+鬼は人がときどき物を置いていくくせがあるのを知っていたので、それと思った。
+
+しかしそれは物ではなく、赤子であることがわかった。
+鬼は赤子をひょいとひろい上げて、すみかに連れ帰った。
+
+その赤子はあまりにおさなく、鬼はどうしていいかわからずおろおろした。
+こまって鬼は、サルのカカに相談することにした。
+
+カカははなしを聞くなり鬼をひどくしかかった。
+
+そこにどんなわけがあったにしろ、
+不用意に連れ拐ってきてはいけなかったのだ。
+連れ帰る前に相談しなかったことを
+カカは強くしかかった。
+
+
+
+カカは赤子に自分の子と同じように乳をやることにした。
+しばらくカカが乳をやり、鬼は毎日赤子に会いに通った。
+カカは鬼に赤子のいろいろなことを話して聞かせた。
+
+なぜ乳ばかり飲んでいるのか、
+なぜいつも泣いてばかりいるのか、
+なぜいつも寝てばかりいるのか・・・・
+
+カカや鬼は赤子を「ひと」と呼ぶようになっていた。
+今日ひとはどうだった、どこへ行った、何をした・・・・
+
+ひとは歩くようになり、口でいろいろな音を出すようになった。
+ひとはカカの乳だけでなく、水でといた木の実の粉も食べた。
+
+たまに鬼のすみかにいるヤギの乳も飲むようになり、
+ひとは鬼のすみかにいるようになった。
+
+
+
+鬼は自分のべんりな爪で、なんでも良いぐあいに切ってかたちにした。
+おはしやおさらの竹、原っぱの草かり、
+薪を切るのも爪だった。
+
+飯を作るとき、鬼は自分の分しか作らなかった。
+
+ひとが集めてきた材料を
+切ってやることはあったが、
+それ以上何ももしなかった。
+しばらくひとは大泣きし、
+何も食べずヤギの乳だけ飲んで
+寝ることも多かったが、
+日の高いうちは木の実や果物、
+日のおわりには
+原っぱから野菜をとってきて、
+少しずつ食べるようになった。
+
+
+
+ひとは鬼のはなす言葉をおぼえ、
+カカやヤギたちのしぐさを見て理解した。
+ひとは一日の一歩を鬼と一緒にいて、その生き方を共にした。
+
+すみかの横の原っぱは草がわさわさするだけの草原ではなく、
+そのほとんどが食べられ、たくさんの野菜を育てていた。
+
+鬼は何をするわけでなく、しかし毎日原っぱへ行き、ちょこちょこ草をかった.
+原っぱをひと回りして、その日食べるものを鬼が摘み、
+たまに鬼は種をまいた。
+鬼は種をとってすみかのうらの土でできたかまくらにためていた。
+
+
+
+すみかのうらには土のかべにそって、同じ土でできた、まるいかまくらがあった。
+かまくらには両端に一つずつ入り口があって、
+ふたつの部屋それぞれにたるやかまの大きいの小さいのたくさん置かれていた。
+植物の種、雑こくの実、つけものやうめぼし、みそやしょうゆが入っていた。
+
+秋にはお米もとれ、綿もとって糸を紡いだ。
+鬼は自分で作った機で布を織り、
+その大きな手を器用に使い、
+着物も足袋も、首巻、帽子、手袋・・・
+必要なものはなんでも作った。
+
+鬼のすみかがどうして
+木と土と革でできているのか、
+どうやって作るのか、
+薪を集め火をおこし、
+火をたやさない術を
+ひとはいつのまにかおぼえていた。
+
+
+
+
+鬼は風呂に入らなかったが、町の人がそうするのを知っていたので、
+鬼はひとが入るように、するかの石間に石と土で風呂を作った。
+鬼はいろりで、枯れた木の枝や松の葉を焼いていたが、
+風呂でだすのに向いたクスギの木や、森で混み合った木を切ってきて薪にした。
+
+ひとには鬼のような爪がなかったので、
+草をかったり木を切ったりけずったりできるように
+砂鉄を集め、かまを作り、鋏を打って道具を作ることを鬼から救（おそ）わった。
+鬼はまた、その道具の使い方や、めんどうの見方も教えてくれた。
+
+
+
+
+鬼とひとは、日が昇り日が沈むまで、働き、はなし、笑った。
+鬼は日々、原っぱと、すみかのうらのかまくらを見て回るのをかかさず、
+森の仲間と語らうのを喜び、
+空が青く、雲が白いことを忘れなかった。
+
+ひとはおとなになっていた。
+
+その
+生きる術をみな、鬼から学び、
+
+その
+鬼の日々、すべてが当たり前だった。
+
+
+
+
+ある日、ひとが薪を集めに山をおりたとき、
+とおくにけむりが立ち昇っているのが見えた。
+一つではなく、それはたくさんで、くぼ地一面に、もやがかかっているようだった。
+
+ひとは、
+あれがもしや
+鬼がはなしていた町というところではないか、
+きっとそうにちがいない、
+そう思った。
+
+ひとはその晩、飯を食いながら考えていた。
+ひとと鬼は自分たちの飯を自分たちの必要なだけ、
+自分たちそれぞれで料理して食べていたが、
+食べるときはいつも一緒だった。
+
+ひとはおおむろに鬼にこう言った。
+「オレは今日町を見た。町におりてみようと思う。」
+
+鬼はしばし考えてこう言った。
+「そうか、行くか・・・
+オレは町の人に決して姿を見せないと約束したので、町へはおりられない。
+お前は一人で町へ行くのだぞ。」
+
+
+ひとはしばし考えて、そして決心した顔つきで、
+
+「わかった。」と言った。
+
+ひとが町におりる日には
+鬼がさいご見送るときは、
+ヤギやカカもいたが、
+やはり鬼のうしろ姿は
+さびしそうに見えた。
+
+
+
+
+どれほどの時が流れただろう。
+
+カカの子が子を生み、その子がまた子を育て、
+それがなん回かめぐって、
+鬼は変わらず山の上あのあの小さなすみかにいた。
+変わかったことと言えば
+空にひどく大きな音をさせて飛ぶ鳥や
+ときおりとおくでキテレツな音が聞こえるようになったことだろう。
+
+鬼はそれが人のすることだと知っていた。
+鬼は近くに町の人がやってきているのを感じて、
+見つからないようにと、新しいすみかを探し始めていた。
+
+ある月の明るい、美しい晩
+
+鬼は新しいすみか探しから、なん日かぶりにあの山の上のすみかに戻ってきた。
+ふと、ふしぎなことに気がついた。
+
+すみかが見当たらない。
+
+すみかだけでなく、原っぱも竹林も、どこにも見当たらない。
+月の明りの下、のそのそ歩き回るうち、
+かまくらのくずれかけた入り口を見つけた。
+そのまわりにあるはずのすみかも原っぱも竹林もなく、ヤギとサルの気配もない。
+鬼は町の人が来たのだと知っていた。
+
+
+
+「ああ、よかった。
+姿を見られなかった。
+明日の朝早く出発しよう。　町の人に見つからない、新しいすみかへ。」
+
+歩きつかれていた鬼はかまくらの中にうずくまり静かに眠りについた。
+月の光があたりを美しく照らし出していた。
+とおくの山が波のように浮かび、かまくらの土の色がきらめいている。
+あとはそのすみかがあっただろう場所に、
+若木の苗がなん列にもならんで植えられているのが、見えるだけだった。`
+        },
+        en: {
+            title: "The Sanctuary on the Hill",
+            subtitle: "Special Sanctuary Room",
+            backBtn: "Back to Main Page",
+            videoTitle: "Video",
+            slideTitle: "Picture Book Slides",
+            storyTitle: "The Story",
+            prevBtn: "Prev",
+            nextBtn: "Next",
+            fullscreenBtn: "⛶ Fullscreen",
+            exitFullscreenBtn: "🗙 Close",
+            videoCode: "72V8dDX72mc",
+            storyText: `There was an ogre.
+Sometimes, the Oni came down to the town.
+
+He did not cause trouble.
+He only wandered quietly, looking around.
+But the townspeople were afraid of him.
+They hurried into their homes and shut their doors,
+watching from the shadows, waiting for the Oni to go away.
+
+The Oni lived on a small hill.
+His home was made of wood, earth, and grass.
+Inside, there was a hearth,
+and a great jar of water stood on the dirt floor.
+In the earthen wall was a round window,
+where light and wind came gently through.
+Behind the home were woods and a bamboo grove,
+with a little stream running through them.
+In front was a small open field.
+The Oni gathered plants there,
+and caught fish from the stream to eat.
+
+One day, a man came from the town.
+He said he had come to defeat the Oni.
+The Oni looked at him and said,
+“I could swallow you whole in a single bite.
+Your sword and even your gun, too.
+Go back to the town before that happens.”
+
+The man stood ready, though trembling.
+“I cannot go back unless I defeat the Oni,” he said.
+“The people in town are terrified of you.
+They are waiting for me to return after defeating you.”
+
+At once, the Oni’s face changed.
+He looked sorry.
+“I was wrong,” he said quietly.
+“Go back and tell them you defeated the Oni.
+Take this necklace of mine, and they will believe you.
+I promise I will never come down to the town again.
+I will never let myself be seen.”
+
+The man stood silent for a while, thinking.
+Then the Oni added,
+“Once the Oni is gone, strange misfortunes will happen around here.
+Tell everyone they must never come near this place.”
+
+Slowly, the man nodded.
+Without another word,
+he turned around and walked away,
+his steps slow and unsteady.
+
+One day, the Oni was walking through the forest.
+Something caught his eye.
+At first, he thought someone had left something behind.
+People sometimes did that, after all.
+But when he looked closer,
+he saw that it was not a thing.
+It was a baby.
+
+The Oni gently picked the baby up
+and carried it back to his home.
+The baby was so very small
+that the Oni had no idea what to do.
+Worried and confused,
+he went to ask Mother Monkey Kaka for help.
+
+The moment she heard what had happened,
+Mother Monkey Kaka scolded him terribly.
+Whatever the reason may have been,
+he should never have taken the baby away so carelessly.
+He should have asked for help first.
+That, she told him sternly.
+
+Mother Monkey Kaka decided to feed the baby milk,
+just as she fed her own children.
+For a while, she cared for the baby,
+and every day the Oni came to visit.
+Mother Monkey Kaka told him many things about babies.
+Why babies drank only milk.
+Why they cried so much.
+Why they slept all the time.
+
+Before long,
+Mother Monkey Kaka and the Oni had begun calling the child “Hito.”
+How was Hito today?
+Where had Hito gone?
+What had Hito done?
+
+Hito learned to walk.
+Hito began making many sounds with their mouth.
+Soon, Hito ate not only milk,
+but also nut flour mixed with water.
+Sometimes, Hito drank goat’s milk too,
+and little by little,
+came to live in the Oni’s home.
+
+The Oni had useful claws.
+With them, he could cut and shape almost anything just right.
+He made chopsticks and plates from bamboo.
+He cut the grass in the field.
+He chopped firewood with those same claws.
+
+When it came time to cook,
+the Oni made food only for himself.
+Sometimes, he would cut the things Hito had gathered,
+but that was all.
+For a while, Hito cried and cried,
+often eating nothing at all,
+drinking only goat’s milk before falling asleep.
+But little by little,
+during the bright hours of the day, Hito gathered nuts and fruit,
+and at the end of the day,
+picked vegetables from the field.
+Slowly, Hito learned to eat.
+
+Hito learned the words the Oni spoke,
+and came to understand the gestures of Mother Monkey Kaka and the goats.
+Step by step, day by day,
+Hito stayed beside the Oni.
+and learned how to live.
+
+The field beside the home was no wild patch of grass.
+Nearly everything growing there could be eaten.
+Many kinds of vegetables grew in abundance.
+The Oni never seemed to be doing anything important,
+and yet every day he visited the field,
+snipping little bits of grass here and there.
+He walked around the field,
+picking only what was needed for that day’s meals.
+Sometimes, he planted seeds.
+The seeds were kept in a little earth hut behind the home.
+
+Behind the house, built against an earthen wall,
+stood round little storehouses made of earth.
+Each had an entrance at both ends,
+and inside were many jars and pots,
+large and small.
+They held plant seeds, grains,
+pickled vegetables and salted plums,
+miso and soy sauce.
+
+In autumn, rice was harvested.
+Cotton was gathered and spun into thread.
+The Oni worked a loom he had made himself,
+using his great hands with surprising care.
+Kimono, tabi socks, scarves, hats, gloves—
+Whatever was needed,
+he made with his own hands.
+
+Why the Oni’s home
+was built from wood, earth, and leather—
+How such things were made—
+How to gather firewood, build a fire,
+and keep it from going out—
+Without realizing it,
+Hito learned all of it.
+
+The Oni himself never took baths.
+But he knew that townspeople did.
+So, beside the house, in a stone-walled space,
+he built a bath from stone and earth for Hito.
+The ogre usually burned fallen branches
+and dried pine needles in the hearth.
+But for the bath,
+he cut fragrant camphor wood
+and thinned crowded trees from the forest for firewood.
+
+Hito did not have claws like the Oni.
+Hito could not cut grass, chop wood, or carve things so easily.
+So the Oni taught Human how to gather iron sand,
+how to make sickles and forge scissors and tools.
+And the Oni taught Hito how to use them,
+and how to care for them too.
+
+From sunrise to sunset,
+the Oni and Hito worked, talked, and laughed together.
+Every day, without fail,
+the Oni walked through the field
+and checked the little earth storehouses behind the home.
+He loved speaking with his friends in the forest.
+And he never forgot
+that the sky was blue
+and the clouds were white.
+
+By then, Hito had grown into an adult.
+Everything Hito knew about living
+had been learned from the Oni.
+And every day beside the Oni—
+every ordinary thing—
+felt simply natural.
+
+One day, while gathering firewood lower down the mountain,
+Hito saw smoke rising in the distance.
+Not just one trail of smoke.
+There were many,
+spreading across the hollow land
+like a pale mist.
+
+Could that be—
+the town the Oni had spoken of?
+Hito felt sure of it.
+
+That night, while eating supper,
+Hito kept thinking.
+The Oni and Hito each cooked only what they themselves needed,
+and each prepared their own meals.
+But when they ate,
+they always ate together.
+
+At last, Hito looked up and said,
+“Today, I saw the town.
+I think I want to go there.”
+
+The Oni thought quietly for a while.
+“I see,” he said at last.
+“Then you will go.
+But I promised the townspeople
+that I would never show myself again.
+I cannot go down to the town.
+You must go alone.”
+
+Hito sat quietly for some time.
+Then, with a determined face, said,
+“All right.”
+
+On the day Human left for the town,
+the Oni came to see Hito off.
+The goats were there,
+and Mother Monkey Kaka too.
+But somehow—
+the Oni’s broad back
+looked lonely.
+
+No one knew how much time had passed.
+Mother Monkey Kaka’s children had children of their own,
+and those children grew and raised young as well.
+This happened again and again.
+And still, the Oni remained
+in that small home upon the hill.
+
+Only a few things had changed.
+Sometimes, enormous birds crossed the sky
+with dreadful roaring sounds.
+And now and then, strange noises echoed faintly from far away.
+The Oni knew
+these were things humans had made.
+He could sense that townspeople
+had begun coming closer to the mountain.
+Careful not to be discovered,
+he had started searching for a new place to live.
+
+Then one night—
+a beautiful night bright with moonlight—
+the Oni returned to the hilltop home
+after several months spent looking for a new place.
+And suddenly,
+he realized something strange.
+
+His home was gone.
+Not only the home—
+the field, the bamboo grove—
+all of it had vanished.
+
+Under the moonlight,
+the Oni wandered slowly around.
+At last,
+he found the crumbling entrance
+to one of the little earthen storehouses.
+But the home that should have stood nearby was gone.
+The field was gone.
+The bamboo grove was gone.
+There was no sign of the goats.
+No sign of the monkeys.
+The Oni understood.
+The townspeople had come.
+
+“Oh,” he said softly.
+“That is good.
+I am glad no one saw me.
+Tomorrow, early in the morning,
+I shall leave.
+I will go somewhere new—
+somewhere the townspeople will never find me.”
+
+Tired from walking,
+the Oni curled up inside the little earth storehouse
+and quietly fell asleep.
+Moonlight spread beautifully across the land.
+Faraway mountains floated like waves in the night.
+The earthen walls shimmered softly beneath the moon.
+And where the home had once stood—
+all that could be seen
+were rows and rows of young saplings,
+carefully planted in the ground.`
+        }
+    };
+
+    // 🔄 画面内容の更新処理
+    function updateContent() {
+        const data = langData[currentLang];
+        
+        document.getElementById('header-title').textContent = data.title;
+        document.getElementById('header-subtitle').textContent = data.subtitle;
+        document.getElementById('back-btn').textContent = data.backBtn;
+        document.getElementById('title-video').textContent = data.videoTitle;
+        document.getElementById('title-slide').textContent = data.slideTitle;
+        document.getElementById('title-story').textContent = data.storyTitle;
+        document.getElementById('btn-prev').textContent = data.prevBtn;
+        document.getElementById('btn-next').textContent = data.nextBtn;
+        document.getElementById('story-text').textContent = data.storyText;
+        
+        // 全画面ボタンのテキスト切り替え
+        const isFS = document.fullscreenElement;
+        document.getElementById('btn-fullscreen').textContent = isFS ? data.exitFullscreenBtn : data.fullscreenBtn;
+        
+        const videoUrl = "https://www.youtube.com/embed/" + data.videoCode;
+        document.getElementById('mystic-video').src = videoUrl;
+
+        updateSlide();
+    }
+
+    // 🖼️ スライド表示の更新
+    function updateSlide() {
+        if(slideImages.length === 0) return;
+        document.getElementById('slide-img').src = slideImages[currentSlideIndex];
+        document.getElementById('slide-counter').textContent = 
+            (currentSlideIndex + 1) + " / " + slideImages.length;
+    }
+
+    // 🕹️ スライドを前後させる処理
+    function changeSlide(direction) {
+        currentSlideIndex += direction;
+        if (currentSlideIndex < 0) {
+            currentSlideIndex = slideImages.length - 1;
+        } else if (currentSlideIndex >= slideImages.length) {
+            currentSlideIndex = 0;
+        }
+        updateSlide();
+    }
+
+    // 🖥️ 全画面表示の切り替え
+    function toggleFullscreen() {
+        const container = document.getElementById('slide-container');
+        
+        if (!document.fullscreenElement) {
+            // フルスクリーンにする
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.webkitRequestFullscreen) { /* Safari用 */
+                container.webkitRequestFullscreen();
+            }
+        } else {
+            // フルスクリーンを解除する
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari用 */
+                document.webkitExitFullscreen();
+            }
+        }
+    }
+
+    // フルスクリーンの状態変化を監視してボタン名を自動で変える
+    document.addEventListener('fullscreenchange', () => {
+        const data = langData[currentLang];
+        const btn = document.getElementById('btn-fullscreen');
+        if (document.fullscreenElement) {
+            btn.textContent = data.exitFullscreenBtn;
+        } else {
+            btn.textContent = data.fullscreenBtn;
+        }
+    });
+
+    // 🌐 言語切り替え処理
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        
+        document.getElementById('btn-ja').classList.remove('active');
+        document.getElementById('btn-en').classList.remove('active');
+        document.getElementById(`btn-${lang}`).classList.add('active');
+        
+        updateContent();
+    }
+
+   // 🚀 ページ読み込み時の初期動作
+    document.addEventListener('DOMContentLoaded', () => {
+        setLanguage('ja'); // 最初は日本語に設定
+    });
+</script>
+
+</body>
+</html>
