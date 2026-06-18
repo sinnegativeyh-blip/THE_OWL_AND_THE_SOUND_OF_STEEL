@@ -13,7 +13,6 @@
             --card-bg: #1a202c;
             --border-color: #2d3748;
             --mystic-color: #8b5cf6;
-            --mystic-glow: rgba(139, 92, 246, 0.4);
         }
 
         body {
@@ -290,7 +289,7 @@
 <body>
 
 <header>
-    <h1 data-ja="ふくろうはあの鋼の音を聞いたか" data-en="The owl and the sound of steel">ふくろうはあの鋼の音を聞いたか</h1>
+    <h1 data-ja="ふくろうはあの鋼の音を聞いたか" data-en="Did the Owl Hear the Sound of That Steel?">ふくろうはあの鋼の音を聞いたか</h1>
     <p class="subtitle" data-ja="各話 特設視聴・閲覧室" data-en="Special Chapter Viewing Room">各話 特設視聴・閲覧室</p>
     <div class="lang-switch">
         <button id="btn-ja" class="lang-btn" onclick="switchLanguage('ja')">日本語</button>
@@ -557,13 +556,13 @@
             <div style="margin-top: 50px; padding: 25px; background: linear-gradient(135deg, #1e1b4b, #111827); border: 1px solid var(--mystic-color); border-radius: 8px; text-align: center; box-shadow: 0 0 15px var(--mystic-glow);">
                 <h4 style="margin: 0 0 10px 0; color: #a78bfa; font-size: 1.1rem; letter-spacing: 0.1em;" data-ja="【特別閲覧室】山の上の小さなすみか" data-en="The Sanctuary on the Hill">【特別閲覧室】山の上の小さなすみか</h4>
                 <p style="margin: 0 0 20px 0; font-size: 0.9rem; color: #9ca3af; line-height: 1.6;" data-ja="変わらず山の上にあった、あの小さなすみかの記憶――。動画と絵本で巡る特別な部屋。" data-en="The memory of that small home upon the hill. A special room with video and picture book.">変わらず山の上にあった、あの小さなすみかの記憶――。動画と絵本で巡る特別な部屋。</p>
-                <a href="mystic.html" style="display: inline-block; background-color: var(--mystic-color); color: #ffffff; padding: 12px 30px; border-radius: 4px; font-weight: bold; text-decoration: none; font-size: 0.95rem; letter-spacing: 0.1em; box-shadow: 0 0 8px var(--mystic-glow);" data-ja="山の上の小さなすみかへ進む" data-en="Go to the Sanctuary">山の上の小さなすみかへ進む</a>
+                <button onclick="goToMystic()" style="display: inline-block; background-color: var(--mystic-color); color: #ffffff; padding: 12px 30px; border-radius: 4px; font-weight: bold; border: none; cursor: pointer; font-size: 0.95rem; letter-spacing: 0.1em; box-shadow: 0 0 8px var(--mystic-glow);" data-ja="山の上の小さなすみかへ進む" data-en="Go to the Sanctuary">山の上の小さなすみかへ進む</button>
             </div>
 
         </div>
     </section>
 
-    <section id="section-mystic" style="display: none;" class="content-section mystic-section">
+    <section id="section-mystic" style="display: none;" class="content-section">
         <h2 class="story-title mystic-title" id="title-mystic"></h2>
         <div class="password-overlay" id="auth-mystic">
             <h3 class="pwd-req-text"></h3>
@@ -573,14 +572,8 @@
             </div>
             <div class="error-message" id="error-mystic"></div>
         </div>
-        <div class="protected-content" id="content-mystic">
-            <h3 class="sub-section-title sub-video-title mystic-border"></h3>
-            <div class="video-container"><iframe id="video-mystic" src="" allowfullscreen></iframe></div>
-            <h3 class="sub-section-title sub-story-title mystic-border"></h3>
-            <div class="story-text" id="text-mystic"></div>
-            <div style="margin-top: 40px; text-align: center;">
-                <button onclick="returnToMain()" class="tab-btn active" id="return-btn-text"></button>
-            </div>
+        <div style="margin-top: 40px; text-align: center;">
+            <button onclick="returnToMain()" class="tab-btn active" id="return-btn-text"></button>
         </div>
     </section>
 </main>
@@ -602,8 +595,7 @@
             '7': 'kuroda', '8': 'seirei', '9': 'ishidan', '10': 'kioku',
             '11': 'kubikazari', '12': 'onozu', '13': 'furin'
         },
-        mysticPassword: {'oni' },
-
+        mysticPassword: 'oni'
     };
 
     // 📖 テキストおよび動画データ一括管理（“” も安全に生書き可能）
@@ -639,7 +631,7 @@
 
 【宿場町 大名が泊まる旅籠（はたご） 本陣】
 
-その時、私は足袋の先から伝わる土の冷たさも、感じられていませんでした。
+その時、私は足袋の先から伝わる土の冷たさも, 感じられていませんでした。
 
 私は本陣(参勤交代の大名宿)の一人娘として育ちました。
 両親共に愛情深く、時に厳しく、私はその親の愛に応える事を喜びとして生きてきました。もちろん、今でも。
@@ -668,7 +660,7 @@
 川のせせらぎが次第に遠のき、道は緩やかに山の方へと折れます。
 いつもの道なのに、朝のほんのりと湿った空気が私のざわついた心を冷やしてくれるようです。
 畑を横目に畔を通り、古い墓地を抜けた先の坂道は、木の根が剥き出しになった山道へと変わり、しばらく続いた鬱蒼とした林の脇から、天を突くように真っ直ぐな石段が姿を現します。
-その石段の手前、霧の中からぬうっと、見慣れた人影が現れました。
+その石段の手前,霧の中からぬうっと、見慣れた人影が現れました。
 ズイシン――里では一之介と呼ばれる男です。
 
 「おやおや、こんな朝早く何者かと思えば、見慣れた本陣のお嬢様ではございませんか。
@@ -676,10 +668,10 @@
 いつもの、あしらうような声。
 かつて鬼退治の英雄と讃えられた男は、今や山門の脇に巣くう偏屈な番人と呼ばされています。寺の和尚様だけがこの男をズイシンと呼び、月の代参りにはいつも、この石段の下で言葉を交わす、慣例の顔なじみとなっておりました。
 「ズイシン様、そこを退（ど）いて。今朝は……どなたの顔も、見たくないのです」
-ズイシンはこの山へ上がるものをことことく見張っております。何人も山の上、その奥へ入らせないためだとか。私はその理由を存じ上げませんが、私の知らない昔の因縁がおありのようで、町の噂話として聞いたことがあります。
+ズイシンはこの山へ上がるものをことことく見張っております。何人も山の上, その奥へ入らせないためだとか。私はその理由を存じ上げませんが、私の知らない昔の因縁がおありのようで、町の噂話として聞いたことがあります。
 その男が今、山門の重い扉のように私の前に立ちはだかっております。
 広げた足を動かしようともせず、私の顔を覗き込んでふっと力なく笑いました。私はズイシンの目が一瞬変わったのを感じました。
-「お嬢様……、いけませんな。そのご様子で今山に上がれば、悪しき物の怪を呼び込むことになりますぞ。……しかし、まあ良い。ただ気を付けなされ、山の毒は強いですからな」
+「お嬢様……, いけませんな。そのご様子で今山に上がれば、悪しき物の怪を呼び込むことになりますぞ。……しかし、まあ良い。ただ気を付けなされ、山の毒は強いですからな」
 彼はひらりと身をかわし、参道脇の陰に消えました。
 
 私はズイシンの言葉を振り払うようにして、石段を駆け上がりました。
@@ -766,7 +758,7 @@
 〈宿場町　本陣〉
 
 　あの日から、暦（こよみ）を数えることしか手につかなくなっていました。
-　月に一、二度の山寺への代参。いつもは「義務」として淡々とこなしていたその日が、今は、遥か彼方の待ち遠しい、子供の頃のお祭りの日のように感じられます。
+　月に二、三度の山寺への代参。いつもは「義務」として淡々とこなしていたその日が、今は、遥か彼方の待ち遠しい、子供の頃のお祭りの日のように感じられます。
 
 　（……あと数日）
 
@@ -1835,9 +1827,10 @@ The one who was once called Zuishin, or the hero of the town named Ichinosuke.
 
 [The End]
 ` }
+
             },
             mystic: {
-                title: "The Sanctuary on the Hill",
+                title: "The Mountain Dwelling",
                 videoCode: "72V8dDX72mc",
                 text: `Welcome to the mountain dwelling of the owl.`
             }
@@ -1865,13 +1858,10 @@ The one who was once called Zuishin, or the hero of the town named Ichinosuke.
             if(text) el.textContent = text;
         });
 
-        // 本文・動画流し込み
+        // タイトル設定
         if (currentChapter === 'mystic') {
             const mysticData = lang.mystic;
             if(document.getElementById('title-mystic')) document.getElementById('title-mystic').textContent = mysticData.title;
-            if(document.getElementById('text-mystic')) document.getElementById('text-mystic').textContent = mysticData.text;
-            const vEl = document.getElementById('video-mystic');
-            if (vEl && mysticData.videoCode) vEl.src = "https://www.youtube.com/embed/" + mysticData.videoCode;
         } else {
             const chData = lang.chapters[currentChapter];
             if (chData) {
@@ -1964,13 +1954,9 @@ The one who was once called Zuishin, or the hero of the town named Ichinosuke.
     function checkMysticPassword() {
         const input = document.getElementById('input-mystic') ? document.getElementById('input-mystic').value : '';
         const errorMsg = document.getElementById('error-mystic');
-        const authOverlay = document.getElementById('auth-mystic');
-        const protectedContent = document.getElementById('content-mystic');
 
         if (input === configData.mysticPassword) {
-            if (authOverlay) authOverlay.style.display = 'none';
-            if (protectedContent) protectedContent.style.display = 'block';
-            if (errorMsg) errorMsg.style.display = 'none';
+            window.location.href = 'mystic.html';
         } else {
             if (errorMsg) errorMsg.style.display = 'block';
         }
