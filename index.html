@@ -285,6 +285,158 @@
             border-top: 1px solid var(--border-color);
             margin-top: 60px;
         }
+
+        /* 📖 縦書きページめくりリーダー */
+        .vr-trigger-wrap {
+            display: flex;
+            justify-content: flex-end;
+            margin: -10px 0 16px 0;
+        }
+
+        .vr-trigger-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            background-color: #111827;
+            color: #9ca3af;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .vr-trigger-btn:hover {
+            color: #ffffff;
+            border-color: var(--accent-color);
+        }
+
+        .vr-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-color);
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .vr-overlay.active {
+            display: flex;
+        }
+
+        .vr-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .vr-title {
+            color: #ffffff;
+            font-size: 1.05rem;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+
+        .vr-close-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: #9ca3af;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .vr-close-btn:hover {
+            color: #ffffff;
+            border-color: var(--accent-color);
+        }
+
+        .vr-stage {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 24px;
+            min-height: 0;
+        }
+
+        .vr-nav-btn {
+            background-color: #111827;
+            border: 1px solid var(--border-color);
+            color: #9ca3af;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            line-height: 1;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .vr-nav-btn:hover:not(:disabled) {
+            color: #ffffff;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .vr-nav-btn:disabled {
+            opacity: 0.25;
+            cursor: default;
+        }
+
+        .vr-viewport {
+            overflow: hidden;
+            height: 100%;
+            max-width: 860px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+            padding: 44px 34px;
+            touch-action: pan-y;
+        }
+
+        .vr-content {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            height: 100%;
+            column-gap: 0;
+            column-fill: auto;
+            font-size: 1.15rem;
+            line-height: 2.15;
+            letter-spacing: 0.04em;
+            color: var(--text-color);
+            white-space: pre-wrap;
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "Shippori Mincho", serif;
+            transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .vr-footer {
+            text-align: center;
+            padding: 14px;
+            color: #64748b;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 640px) {
+            .vr-nav-btn { width: 38px; height: 38px; font-size: 1.2rem; }
+            .vr-content { font-size: 1.05rem; }
+            .vr-viewport { padding: 28px 18px; }
+            .vr-stage { padding: 14px; gap: 8px; }
+        }
     </style>
 </head>
 <body>
@@ -331,6 +483,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-1" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('1')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-1"></div>
         </div>
     </section>
@@ -349,6 +502,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-2" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('2')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-2"></div>
         </div>
     </section>
@@ -367,6 +521,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-3" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('3')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-3"></div>
         </div>
     </section>
@@ -385,6 +540,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-4" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('4')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-4"></div>
         </div>
     </section>
@@ -403,6 +559,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-5" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('5')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-5"></div>
         </div>
     </section>
@@ -421,6 +578,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-6" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('6')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-6"></div>
         </div>
     </section>
@@ -439,6 +597,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-7" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('7')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-7"></div>
         </div>
     </section>
@@ -457,6 +616,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-8" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('8')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-8"></div>
         </div>
     </section>
@@ -475,6 +635,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-9" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('9')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-9"></div>
             <div style="margin-top: 50px; padding: 25px; background: linear-gradient(135deg, #1e1b4b, #111827); border: 1px solid #3b82f6; border-radius: 8px; text-align: center; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);">
                 <h4 style="margin: 0 0 10px 0; color: #3b82f6; font-size: 1.1rem; letter-spacing: 0.1em;" data-ja="【特別公開】一之介スピンオフ物語" data-en="THE BOY AND THE DAGGER">【特別公開】一之介スピンオフ物語</h4>
@@ -498,6 +659,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-10" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('10')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-10"></div>
         </div>
     </section>
@@ -516,6 +678,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-11" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('11')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-11"></div>
         </div>
     </section>
@@ -534,6 +697,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-12" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('12')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-12"></div>
         </div>
     </section>
@@ -552,6 +716,7 @@
             <h3 class="sub-section-title sub-video-title"></h3>
             <div class="video-container"><iframe id="video-13" src="" allowfullscreen></iframe></div>
             <h3 class="sub-section-title sub-story-title"></h3>
+            <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('13')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-13"></div>
 
             <div style="margin-top: 50px; padding: 25px; background: linear-gradient(135deg, #1e1b4b, #111827); border: 1px solid var(--mystic-color); border-radius: 8px; text-align: center; box-shadow: 0 0 15px var(--mystic-glow);">
@@ -583,16 +748,30 @@
     <p>&copy; ふくろうはあの鋼の音を聞いたか 特設サイト</p>
 </footer>
 
+<div class="vr-overlay" id="vr-overlay">
+    <div class="vr-header">
+        <span class="vr-title" id="vr-title"></span>
+        <button class="vr-close-btn" onclick="closeVerticalReader()">✕ 閉じる</button>
+    </div>
+    <div class="vr-stage">
+        <button class="vr-nav-btn" id="vr-next-btn" onclick="vrNextPage()" aria-label="次のページ">‹</button>
+        <div class="vr-viewport" id="vr-viewport">
+            <div class="vr-content" id="vr-content"></div>
+        </div>
+        <button class="vr-nav-btn" id="vr-prev-btn" onclick="vrPrevPage()" aria-label="前のページ">›</button>
+    </div>
+    <div class="vr-footer" id="vr-page-indicator"></div>
+</div>
+
 <script>
     // 状態管理変数
     let currentLang = 'en';
     let currentChapter = '1';
 
-    // 🔐 パスワード設定（第1話は初期設定としてパスワードなし「全公開」扱いに設定）
+    // 🔐 パスワード設定（全話パスワードなしで公開、mysticのみ「oni」で保護）
     const configData = {
         passwords: {
-            '1': '', // 1話はパスワードなしで即表示
-            '2': '', '3': '', '4': '', '5': '', '6': '',
+            '1': '', '2': '', '3': '', '4': '', '5': '', '6': '',
             '7': '', '8': '', '9': '', '10': '',
             '11': '', '12': '', '13': ''
         },
@@ -611,7 +790,7 @@
             backToMain: "メインページに戻る",
             chapters: {
                 '1': {
-                    title: "第一話：暁の鉄、露の境界",
+                    title: "第一話：暁（あかつき）の鉄、露（つゆ）の境界",
                     videoCode: "Swn2FuZ8e0A", // 各話のYouTube ID
                     text: `　想像してほしい、聞いたことのない音を。
 何よりも心地よく、心が奮わされる。
@@ -622,7 +801,7 @@
 
 　私は、この山に住まうふくろう。
 夜の帳が下りる頃に目覚め、人の営みの移ろいを、ただじっと見つめている。
-物語の始まりは、まだ冷たい朝靄が立ち込める頃。
+物語の始まりは、まだ冷たい朝霧が立ち込める頃。
 山あいの静寂をいつものように無骨に、しかし優しく目覚めさせる、あの鉄を打つ音が聞こえてくるところから……。
 
 　カァン、カァン……
@@ -634,19 +813,19 @@
 
 その時、私は足袋の先から伝わる土の冷たさも、感じられていませんでした。
 
-私は本陣(参勤交代の大名宿)の一人娘として育ちました。
+私は本陣（参勤交代の大名宿）の一人娘として育ちました。
 両親共に愛情深く、時に厳しく、私はその親の愛に応える事を喜びとして生きてきました。もちろん、今でも。
-父上は仕事一本の真面目な性格、母上は社交上手で才色兼備、私の憧れの女性像、そんな両親を私は心から尊敬しております。
+父上は仕事一本の真面目な性格、母上は社交上手で才色兼備、私の憧れの女性像。そんな両親を私は心から尊敬しております。
 ただ時々、私の心は虚しさに襲われるのです。
 自分ではこんなに恵まれていて、なんと傲慢で欲深な女なのかと自己嫌悪に陥ります。
 そのような時にこそ両親の愛に応えたいと気を張るのですが、余計に心が拒むのです。
-時に目にする、夜な夜な帳簿をつけながら頭を抱える父上、社交の場でふと虚な眼差しで空を見る母上、そこで家の者が寝静まってから深刻に話す両親。
-それが私に幸せとは何かと疑問を投げかけるのです。
+夜な夜な帳簿をつけながら頭を抱える父上。社交の場でふと虚な眼差しで空を見る母上。そして家の者が寝静まってから深刻に話す両親の声。
+それが私に、幸せとは何かと疑問を投げかけるのです。
 十九の歳はとうに嫁に出る頃を過ぎていて、良きご縁を吟味した両親の愛情の表れでもありますが、幼き頃から習い事も礼儀作法も授けてくれた両親の期待に、私は応えるだけの器量が備わったのでしょうか。
 私は本陣の暮らしの中に、ずっと不安を感じておりました。
 この先、本陣の一人娘として、婿をとって家業を継ぎ、母上のように宿場町の社交を担っていけるのか。
 
-前の晩、父上が語った縁談の話が、まだ耳の奥で澱（よど）みのように残っていました。「お前の幸せを思ってのことだ」父上のその言葉が、私を型に流し込み、本陣の娘という役割を完成させるための、最後の一押しに聞こえたのです。
+前の晩、父上が語った縁談の話が、まだ耳の奥で澱（よど）みのように残っていました。「お前の幸せを思ってのことだ」。父上のその言葉が、私を型に流し込み、本陣の娘という役割を完成させるための、最後の一押しに聞こえたのです。
 私の不安は渦を巻き、堰を破って溢れ出たのです。
 
 ″代参に行きます。後のことは、よしなに〟
@@ -669,17 +848,17 @@
 いつもの、あしらうような声。
 かつて鬼退治の英雄と讃えられた男は、今や山門の脇に巣くう偏屈な番人と呼ばされています。寺の和尚様だけがこの男をズイシンと呼び、月の代参りにはいつも、この石段の下で言葉を交わす、慣例の顔なじみとなっておりました。
 「ズイシン様、そこを退（ど）いて。今朝は……どなたの顔も、見たくないのです」
-ズイシンはこの山へ上がるものをことことく見張っております。何人も山の上、その奥へ入らせないためだとか。私はその理由を存じ上げませんが、私の知らない昔の因縁がおありのようで、町の噂話として聞いたことがあります。
+ズイシンはこの山へ上がるものをことごとく見張っております。何人も山の上、その奥へ入らせないためだとか。私はその理由を存じ上げませんが、私の知らない昔の因縁がおありのようで、町の噂話として聞いたことがあります。
 その男が今、山門の重い扉のように私の前に立ちはだかっております。
 広げた足を動かしようともせず、私の顔を覗き込んでふっと力なく笑いました。私はズイシンの目が一瞬変わったのを感じました。
-「お嬢様……, いけませんな。そのご様子で今山に上がれば、悪しき物の怪を呼び込むことになりますぞ。……しかし、まあ良い。ただ気を付けなされ、山の毒は強いですからな」
+「お嬢様……、いけませんな。そのご様子で今山に上がれば、悪しき物の怪を呼び込むことになりますぞ。……しかし、まあ良い。ただ気を付けなされ、山の毒は強いですからな」
 彼はひらりと身をかわし、参道脇の陰に消えました。
 
 私はズイシンの言葉を振り払うようにして、石段を駆け上がりました。
 誰もいない石段。杉の木立が空を遮り、闇と光が混ざり合う。
 その時でした。
 ――カァン
-空気を切り裂くような、鋭く、それでいて澄んだ音が山に響しました。
+空気を切り裂くような、鋭く、それでいて澄んだ音が山に響きわたりました。
 お寺の鐘でも、誰かの呼び声でもなく。それは、鉦（かね）を叩くような、胸の奥に響き渡る音でした。
 ――カァン、カァン、カァン
 私の心に重く立ち込めていた霧が、一瞬で晴れたような気がいたしました。
@@ -697,7 +876,7 @@
 男は背を向けたまま、最後の一打ちを「ドン」と重く響かせました。
 その瞬間、私の体は凍りついたように動けなくなったのです。`
                 },
-                '2': { title: "第二話：視線の楔", videoCode: "iwjrjTcw2W4", text: `　私は、この山に住まうふくろう。
+                '2': { title: "第二話：視線の楔（くさび）", videoCode: "iwjrjTcw2W4", text: `　私は、この山に住まうふくろう。
 月は沈み、空が白み始める。
 そこは超えてはならない結界の内側。
 紛れ込んだ一輪の徒花（あだばな）は、もはや蕾に戻ることはない。
@@ -715,13 +894,13 @@
 彼が背負う熱気が、目に見えない大波となって私を押し戻そうとしています。
 （――離れよ）
 声は聞こえない。けれど、彼の背中が、握られた槌が、そして立ち昇る煙さえもが、そう拒絶しています。
-女が近づいてはいけない聖域に不用意にも近づいてしまった、私はまるで罠にかかった小鹿のように、為す術なくそこに留め置かれるだけ。
+女が近づいてはいけない聖域に、私は不用意にも近づいてしまった。まるで罠にかかった小鹿のように、為す術なくそこに留め置かれるだけ。
 ただ「不純を許さぬ」という無垢な拒絶が、そこにあるようでした。
 　
 　彼がゆっくりと首を巡らせ、私の方へ目線を向けました。
 夜明けの薄い光と、炭火を背にしたうす暗い影からでも、私を射抜くその視線がはっきりと感じられます。
 山の木々の隙間から差し込む朝の陽光が、だんだんと強さを増しています。その光を浴びて、彼の目にも光が灯ったような気がしました。
-　そこには宿場の殿方たちが見せる、品定めするような視線ではない、父上から向けられる、慈しみと支配の混ざった視線でもない、ただ、そこに「在る」ものを、ありのままに見つめる光。私の着物も、家柄も、親の期待も、彼にとって何の価値もない、評価のない「無」なのです。
+　そこには宿場の殿方たちが見せる、品定めするような視線ではない。父上から向けられる、慈しみと支配の混ざった視線でもない。ただ、そこに「在る」ものを、ありのままに見つめる光。私の着物も、家柄も、親の期待も、彼にとって何の価値もない、評価のない「無」なのです。
 　心臓の音が、耳元でうるさいほどに鳴っています。
 私は動けずにいました。
 謝ることも、逃げ出すこともできず、ただ、剥き出しの自分を晒されているような恥ずかしさと、見たこともない強烈な光に当てられて、恍惚の中にいるかのようでした。
@@ -759,7 +938,7 @@
 〈宿場町　本陣〉
 
 　あの日から、暦（こよみ）を数えることしか手につかなくなっていました。
-　月に一、二度の山寺への代参。いつもは「義務」として淡々とこなしていたその日が、今は、遥か彼方の待ち遠しい、子供の頃のお祭りの日のように感じられます。
+　月に二、三度の山寺への代参。いつもは「義務」として淡々とこなしていたその日が、今は、遥か彼方の待ち遠しい、子供の頃のお祭りの日のように感じられます。
 
 　（……あと数日）
 
@@ -801,7 +980,7 @@
 今日も、あの朝の音が幻であったかのように、鳥のさえずりだけが山の木々にこだましています。
 　道を間違えたのでしょうか。
 あの朝霧に包まれた板葺きの小屋には行きつかず、いつの間にかぽっかりと木々の中に拓けた、陽ざしが一面に差し込む草はらに出ました。
-膝元まであるような草草が、山からの緩やかな風を受けてなびいています。その穂先は陽光を浴びて、きらきらと瞬いてるようです。
+膝元まであるような草草が、山からの緩やかな風を受けてなびいています。その穂先は陽光を浴びて、きらきらと瞬いているようです。
 その緑の鮮やかさと菜花との対比が美しく、合間には野の花々が咲いていて、桃源郷のような光景が広がっていました。
 その草はらの中に、あの闇の中に火花を生み出していた存在とは見違える、私が今まで気に留めることのなかった、ゼンという野鍛冶が佇んでおりました。
 　
@@ -820,8 +999,8 @@
 （……これは、畑？）
 野の花が咲きほこる中に確かに野菜たちが見えるのです。
 
-　私の知る畑は、町に通りのその両側に家が建ち並ぶように、野菜たちが均された土道の両側に並ぶ場所。
-でもここは畑と呼ぶには程遠い、草の合間に獣道のような条と、その両側に点々と並ぶ野菜たちが、植わっている、いえ、生えているというのでしょうか。
+　私の知る畑は、町の通りに家々が並ぶように、野菜たちが均された土道の両側に並ぶ場所。
+でもここは畑と呼ぶには程遠い、草の合間に獣道のような条があり、その両側に点々と野菜たちが、植わっている、いえ、生えているというのでしょうか。
 背の高い草も、名もなき花も、そしてその隙間に顔を覗かせる野菜たちも、互いに場所を譲り合うようにしてそこにあるのです。
 ゼンさんは膝を起こし立ち上がると、ゆっくりと歩を進めながら、まるで眠っている子供の髪を撫でるような手つきで、草たちの上に手をそよがせていました。
 
@@ -878,7 +1057,7 @@
 　「和尚様、ごきげんよう」
 　「ほう、トキ殿。何か良いことでもありましたか？　声がいつになく鳥のように艶やかで、呼気が通っておられる」
 私は、頬がぽっと赤らむのを感じました。見透かされたような気恥ずかしさに、思わず顔を伏せます。
-　「ははは、よいよい。此度の縁談が良縁である証ですな。本陣も安泰、なによりじゃ。」
+　「ははは、よいよい。此度の縁談が良縁である証ですな。本陣も安泰、なによりじゃ」
 　「……和尚様、違います。縁談のことではございませんの」
 　「ほう、と申すと？」
 　「和尚様は……あの野鍛冶のゼンさんをご存じでしょう？　今、あの方の畑に寄って参りましたの」
@@ -919,13 +1098,13 @@
                 '6': { title: "第六話：境界の残照、英雄の疼（うず）き", videoCode: "nYY1XH4gOQQ", text: `〈山寺　仏殿縁側〉
 
 　「ズイシンというのはわしが戒名としてあやつに与えたもの。心の髄、真の髄。
-娑婆（しゃば）の嘘は人の性（さが）じゃ。仏門に下ればもはや不要、捨てよと、一之介は死んだ、あとはお前の真を生きよと。
+娑婆（しゃば）の嘘は人の性（さが）じゃ。仏門に下ればもはや不要、捨てよと。一之介は死んだ、あとはお前の真を生きよと。
 　結局あやつは、あの石段脇に収まった。山を禁足地とし、誰一人山の奥へ入らぬよう、呪いを自らの糧とするように。
 わしはそんなことが、あやつの真とは思えんのじゃが……」
 私はただ聞いているだけ。和尚様の横顔が哀しげに見えました。
 
 　「ズイシンは鬼などいなかったと、鬼退治は嘘だと申した。
-しかし確かにその首飾りを手にしていた、あれは五日のうちに作れる代物ではない。
+しかし確かにその首飾りを手にしていた。あれは五日のうちに作れる代物ではない。
 ズイシンは何者かに会い、それを授かったのだ。
 ズイシンが何者に出会ったにしろ、あやつは自分の嘘が暴かれることを心底恐れている。それが故にあの石段にへばりついておる。それほどに恐れる理由はわしにもわからんが、今のあやつにとっては、それが全てなのじゃ」
 
@@ -960,7 +1139,7 @@
 ズイシンが一歩、私に詰め寄ります。その瞳には、隠し続けてきた三十年分の「嘘の痛み」が澱のように滲んでいました。
 
 　「あいつは触れてはならない蜜のごとく甘い、世迷の毒です。
- ……自分を見失いなさんな。お嬢様が現（うつつ）を抜かせば抜かすほど、本陣の掟は歪み、ご両親が苦労を重ねて持ち上げた縁談が無に帰す。
+……自分を見失いなさんな。お嬢様が現（うつつ）を抜かせば抜かすほど、本陣の掟は歪み、ご両親が苦労を重ねて持ち上げた縁談が無に帰す。
 ……貴女のお遊びが、誰の犠牲の上に成り立つとお考えですか！」
 　「そんな……私は、私は……」
 　「帰りなされ。そして、その瞳の火を消しなされ。本陣の娘として、死んだ魚のような目で、お世辞を笑って見せなされ。……それが、この人の世で生きるということだ」
@@ -991,8 +1170,8 @@
 目を閉じれば、あの野の畑に佇むゼンさんの姿が、瞼の裏に鮮やかに浮かびます。
 しかしそれと同時に、ズイシンの鋭い言葉が心に刺さりました。……本陣の娘としての運命。
 私は複雑な想いのまま、汁の青菜を口に運び、ちらりと父上の方に気を向けました。
-父上はいつも仕事のことを考えてらっしゃいます、膳を前にしてもそれは変わりません。
-母上もそれをわかってらっしゃるので、無用の会話はなさらない、それは我が家の日常の風景でした。
+父上はいつも仕事のことを考えてらっしゃいます。膳を前にしてもそれは変わりません。
+母上もそれをわかってらっしゃるので、無用の会話はなさらない。それは我が家の日常の風景でした。
 この時は特に、大名ご一行をお迎えする前、いつもに増して緊張感のある食事時でした。
 　そんな折、父上は、無言で箸の手を止めて、ゆっくりと、何か確かめるように咀嚼しています。
 母上がすかさず汁を一口含んで言いました。
@@ -1029,7 +1208,7 @@
 黒田様の一団が奥の間へと消えていくのを見送った後、私は母の袂（たもと）を掴んで問いかけました。
 　「……覚えていなくて当然です。あなたがまだ、三つか四つの頃の話ですから」
 母上は、黒田様が向かった奥の暗がりに視線を据えたまま、声を潜めました。
-　「あの方は昔、武芸で名を馳せた御仁、血気盛んでいらっしゃれば、ここへ以前ご滞在の際に抜刀まがいの事を起こされて、お上から注意をお受けになられたのよ。あなたが幼き頃とはいえ、あの時は……。
+　「あの方は昔、武芸で名を馳せた御仁。血気盛んでいらっしゃれば、ここへ以前ご滞在の際に抜刀まがいの事を起こされて、お上から注意をお受けになられたのよ。あなたが幼き頃とはいえ、あの時は……。
 まあ、とはいえ、黒田様もおおせの通り、昔のことです」
 母上はそれ以上何も語らず、甲斐甲斐しくもどこか無機質な手つきで、黒田様への夜伽の準備を命じに去って行きました。
 
@@ -1037,7 +1216,7 @@
 　それはいつか見た夢の残滓（ざんし）のように朧気（おぼろげ）で、前後の記憶は霧に包まれたまま。手繰り寄せようとしても、今日一日の溢れんばかりの見聞に押し流され、体も心も深い休息を求めていました。
 
 　床に就いて間もなく、私は意識の淵を滑り落ちるように眠りに吸い込まれていきました。ただ、その抗いようのない眠気の底で、冷たい雨に打たれながら、じっと前を見据えて立つゼンさんの後ろ姿を、ぼんやりと見つめていた気がいたします。` },
-                '8': { title: "第八話：錆びた闘心、剥き出しの牙", videoCode: "EzQZI-dl-nY", text: `　私は、この山に住まうふくろう。
+                '8': { title: "第八話：錆びた闘心、剥き出し（むきだし）の牙", videoCode: "EzQZI-dl-nY", text: `　私は、この山に住まうふくろう。
 隠したつもりでも、本物は隠しきれないものです。
 刃の重み、野菜の滋味、そして娘の瞳の奥に灯った火。
 かつて武を求めた老いた鷲（わし）は、死にゆく獲物よりも、まだ生臭い「真実」の匂いを好むものです。
@@ -1082,7 +1261,7 @@
 　「おりません」と断言すればするほど、私の「守ろうとする必死さ」こそが、ゼンさんがそこにいる確たる証拠となってしまったのです。
 
 　黒田様は無言のまま、白湯をぐいと飲み干し、座敷を後にされました。その背中は、もはや隠居した老人ではなく、獲物を追い詰める武士のそれへと、完全に変貌していました。` },
-                '9': { title: "第九話：英雄の虚像、剥がれ落ちる鱗", videoCode: "4gSeWEDwU98", text: `　私は、この山に住まうふくろう。
+                '9': { title: "第九話：英雄の虚像、剥がれ落ちる鱗（うろこ）", videoCode: "4gSeWEDwU98", text: `　私は、この山に住まうふくろう。
 言葉というのは、時に鋼よりも鋭く人を刺す。
 守りたいもののために吐いた嘘が、自分自身を搦（から）め捕る鎖になる。
 娘さん。茂みに隠れて震えるあなたが見るのは、風車のように回る、嘘と真。
@@ -1096,7 +1275,7 @@
 　そこへいつものごとく、参道脇から姿を現したのは、ズイシンでした。
 殺気だった男達の気配をすでに察して、ズイシンもいつもの飄々としたご様子ではありません。まるで果し合いの待ち合わせに現れたお侍のように、男たちとの間合いを取りながら、片手は脇差にかかっております。
 
-　「お主らのようなよそ者が、近づいてよい領域ではないぞ。この山寺の奥は禁足地である。誰の指図で参ったのじゃ」
+　「お主らのようなよそ者には、近づいてよい領域ではないぞ。この山寺の奥は禁足地である。誰の指図で参ったのじゃ」
 　ズイシンの今まで聞いたことのないような低い声が森に響きました。
 
 　「わしは越中、黒田じゃ。貴様のような浪人に用はない。押し通す。
@@ -1141,7 +1320,7 @@
 雨が次第に強くなっていました。
 本陣へと戻る黒田様たちの勝ち誇ったような足音。
 私は、喉まで出かかった叫びを、自分の手で必死に押し殺しておりました。` },
-                '10': { title: "第十話：雨の匂い、蘇る記憶の音", videoCode: "s_KI4H2szZM", text: `〈宿場町の鍛冶場〉
+                '10': { title: "第十話：雨の匂い、蘇る（よみがえる）記憶の音", videoCode: "s_KI4H2szZM", text: `〈宿場町の鍛冶場〉
 
 　夕刻、薄黒い雲はすっかり空を覆い、一時は止んだ雨も、静かな霧雨に変わっていました。
 本降りになる前に到着した大名一行の熱気に、町は浮き足立つように色めき立っています。この雨では、一行は少なくとも一日は足止めを食うでしょう。それを見越したかのように、黒田様は町の鍛冶場にゼンを繋ぎ留め、鉄を打つよう命じていました。
@@ -1165,7 +1344,7 @@
 
 　「ゼンさん……」
 　「……お嬢様。あなたが来て良いところではないはずだ」
-　「ごめんなさい、わかっています。でも、どうしてもゼンさんにお話しておきたくて」 私はそっと隣に腰を下ろしました。
+　「ごめんなさい、わかっています。でも、どうしてもゼンさんにお話しておきたくて」　私はそっと隣に腰を下ろしました。
 　「覚えていらっしゃいますか。……十五年前、あの日も雨が降っていました。本陣の庭で、あなたが黒田様に追い詰められていた、あの日のことを」
 
 　「……覚えております。忘れるはずもございません」
@@ -1195,7 +1374,7 @@
 ゼンさんは続けます。
 　
 　「……私は、赤ん坊の時に山に捨てられました。
-私を拾い、育ててくれた父と母がいます、が、人ではありません。私は人の情を知らずに育ちました。そんな私が独り立ちの歳頃、産みの親の事や、里のことを知りたくなりました。そうしてこの町へやってきたのです。
+私を拾い、育ててくれた父と母がいますが、人ではありません。私は人の情を知らずに育ちました。そんな私が独り立ちの歳頃、産みの親の事や、里のことを知りたくなりました。そうしてこの町へやってきたのです。
 　最初は言葉もわからず、人並みのことは一切できませんでした。そんな私を引き受けてくれたのがあなたのお父上様です。主は読み書きも、里の慣習も全て教えてくださいました。そして工房も授けてくださり、私を人並みに育ててくれました。
 あなたがお生まれになったのは、私が町に来て程無くした頃です」
 
@@ -1206,7 +1385,7 @@
 　私は……あなたを、悲しませたくない。……たとえ、この腕を失うことがあったとしても」
 
 　私はその瞬間、ゼンさんの中に強い覚悟を感じて、言葉が先をつきました。
-　「逃げましょう、ゼンさん。ズイシン様が、外で待っています」
+　「逃げましょう、ゼンさん。ズイシンさんが、外で待っています」
 私の必死の訴えに、ゼンさんは静かに首を振りました。
 その顔には、以前のような静かさはなく、ある決意を秘めた硬い笑みが浮かんでいました。
 　「……いや。このまま逃げれば、あなたの家も、ズイシン殿にも、累（るい）が及ぶ。……打たねばなりません。黒田様に、終わりの音を届けるために」
@@ -1229,7 +1408,7 @@
 私の言葉に、ズイシンは空を仰いだ。その目には、ゼンさんと同様の覚悟を決めた者だけが持つ、澄んだ光が宿っていました。
 　「……そうかい。あいつも人間らしくなりやがった。鉄ってのは、叩かれりゃ叩かれるほど強くなる。人間も同じだ。ずっと山門下で埋もれていたあいつが、あんたという火が入って変わったんだ。あんたもそうだ、いい面になった」
 　
-　ズイシンは、山門の方角を見据えながら、ぽつりと呟やきました。
+　ズイシンは、山門の方角を見据えながら、ぽつりと呟きました。
 　「草も虫も人間も、この世のものはなんでもだ……『おのずからしからむる』って法には逆らえねえんだ」
 　「おのずから、しからむる……」
 　「そうさ。無理に曲げようとしたり、型にはめようとしたって、結局はなるようにしかならねぇ。黒田の旦那は、それを自分の力でねじ伏せられると思ってやがる。
@@ -1254,7 +1433,7 @@
 
 　「旦那、望み通りに事が運んで、さぞ愉快でしょうな」
 工房の戸口からズイシンが声をかけます。黒田様はさっと振り返り、ズイシンを見てにやりと笑いました。
-　「一之助か、懲りずに顔を出すとは良い度胸だ。しかし今のお前に何ができるはずもない。大人しくそこで指でも咥えておれ」
+　「一之介か、懲りずに顔を出すとは良い度胸だ。しかし今のお前に何ができるはずもない。大人しくそこで指でも咥えておれ」
 そう掻き捨てるように言って、黒田様はまたゼンさんの方へ向き直りました。
 　「そう、俺はただ観てるだけだ。あんたのその人たらしめる執念の行く末と、阿弥陀さんが治めるおのずからの計らいの結末をな」
 　ズイシンはわかっていたのだと思います。
@@ -1263,7 +1442,7 @@
 
 「……さあ、いよいよかね。祭りの太鼓とも、笛の音とも違う。この世で一番、贅沢な音が奏でだすぜ」
 ズイシンは独りごち、腰の刀をぐっと握りしめました。` },
-                '12': { title: "第十二話：鋼の煌めき、鎮魂の響き", videoCode: "YQGrwTSgT64", text: `　私は、この山に住まうふくろう。
+                '12': { title: "第十二話：鋼の煌めき（きらめき）、鎮魂の響き", videoCode: "vmpE6XIVzng", text: `　私は、この山に住まうふくろう。
 法（のり）を超えた法。
 人がどれほど命を縛ろうとも、風は吹き、種は弾け、心は惹かれ合う。
 英雄は、運命という河の流れに身を捧げようとしている。
@@ -1275,7 +1454,7 @@
 　雨は少し小降りに変わっていました。
 風も収まり、大名到着の賑わいも落ち着きを取り戻していました。
 
-　その一方、工房の炉は、火が勢いを増し、その熱も最高潮を迎えようしています。
+　その一方、工房の炉は、火が勢いを増し、その熱も最高潮を迎えようとしています。
 私は工房の外の冷たい石床の上に跪き、物陰からわずかに漏れる光を見つめていました。中から聞こえるのは、一定のリズムを刻むふいごの音と、時折散る炭の爆ぜる音。
 そこには火の熱と冷たい鉄の間で、それらを結びつけるように立つゼンさんの姿が見えます。じっと時を待つその背中が。
 　（ゼンさん、あなたの打つ鉄が、どうか……）
@@ -1303,7 +1482,7 @@
 　「見せろ！　わしが追い求めた、至高の刃を！」
 ゼンさんは無言で布を解きました。
 そこにあったのは、刀ではありません。薄く、透き通るような青みを帯びた、細く長い数本の鉄箸。
-　「なんだこれは、……貴様、わしを愚弄するかッ！」
+　「なんだこれは……。貴様、わしを愚弄するかッ！」
 黒田様の顔が怒りで赤黒く染まります。
 ゼンさんは黒田様の目の前にさっとその鉄箸を持ち上げて見せました。
 高く掲げられたその鉄箸は上で一つに括られ、ゆらゆらと揺れてぶつかり合います。
@@ -1331,7 +1510,7 @@
 黒田様の殺気が、私と周りにいた全ての人の緊張を引き戻しました。
 逆上した黒田様は、法を忘れ、腰の業物を引き抜いたのです。
 　「死ね！　役立たずの犬め！」
-白刃が閃いた瞬間、私は恐怖で叫び声を上げようとしました、でも、その前に、何かの影が飛んでいくのを見ました。
+白刃が閃いた瞬間、私は恐怖で叫び声を上げようとしました。でも、その前に、何かの影が飛んでいくのを見ました。
 あまりに一瞬のことで、全てが走馬灯のようでした。
 まるで嘘のようで、信じたくないという自分もいて、ただその中央にズイシンが大きく両手を広げて立っていたのです。
 　
@@ -1352,7 +1531,7 @@
 ズイシンは、最期に私の顔を見て、満足そうに頷いた。
 　「……いい顔だ……お嬢様。……人間、泣いたらまた、笑うんだ……」
 彼の命が尽きると同時に、窓辺の風鈴が、ひときわ大きく、澄んだ音で鳴り響きました。` },
-                '13': { title: "最終話：現（うつつ）の世の片隅にて", videoCode: "keE1qfQZtUk", text: `　嵐が去った後の宿場町は、何事もなかったかのように平穏を取り戻していました。
+                '13': { title: "最終話：現（うつつ）の世の片隅にて", videoCode: "w9MPb_ZFrpU", text: `　嵐が去った後の宿場町は、何事もなかったかのように平穏を取り戻していました。
 黒田様は、公儀の場での抜刀と殺生という、武士として重い法（のり）を犯した責を問われ、自らその命を断ちました。
 不自然な力で運命をねじ伏せようとした「欲」の終わりは、あまりにあっけないものでした。
 
@@ -1368,7 +1547,7 @@
 言葉少なの二人の間に静かに流れ込む風。それを受けてかどこからともなく、風鈴の音が山の木々の間に優しく響いてきます。
 　
 　ゼンは、隣に座るトキを見つめ、穏やかな声で言いました。
-「……おのずと、今があり、あなたがいる。ズイシン殿もまた、私たちの胸の中に。」
+「……おのずと、今があり、あなたがいる。ズイシン殿もまた、私たちの胸の中に」
 トキは、その言葉に深く頷き、ゼンの肩にそっと頭を預けました。
 山は静かに、二人を包み込んでいました。
 
@@ -1503,8 +1682,7 @@ By the time I reached home and settled upon the tatami of the silent parlor, my 
 
 What had that been? The eyes of that blacksmith had not looked upon me as the daughter of the Honjin. They had looked upon me. It felt as though my life—wrapped, until that morning, in the thin silk of routine—had been torn open by a single, ringing sound.
 
-It should have frightened me. And yet, deep within my chest, a small flame of curiosity, unlike any I had known before, had caught, and begun to burn.
-` },
+It should have frightened me. And yet, deep within my chest, a small flame of curiosity, unlike any I had known before, had caught, and begun to burn.` },
                 '3': { title: "Chapter 3: The Faded Backdrop, The Only Truth", videoCode: "SHWoC3oBuV0", text: `I am the owl who dwells upon this mountain.
 It is the nature of human beings that once they hear a single sound that makes the soul tremble, the garden they loved until yesterday looks suddenly like nothing more than the painted scenery of a playhouse.
 Young lady—how does the town appear to your eyes now? Do the vivid kimonos, the sweet confections, all seem somehow thin, and grey?
@@ -1591,8 +1769,7 @@ To me, this boundless landscape, and Zen-san moving through it, felt like one of
 
 For a long while I stood entranced in Zen-san's field, that beautiful Peach Blossom Spring, losing all sense of time.
 
-I had no way, then, of knowing that Zuishin watched from the shadow of the trees behind me. Nor did I know why a young samurai once called Ichinosuke had become the man known as Zuishin—nor that the blacksmith named Zen was already hidden, somewhere, in the deepest folds of my own memory.
-` },
+I had no way, then, of knowing that Zuishin watched from the shadow of the trees behind me. Nor did I know why a young samurai once called Ichinosuke had become the man known as Zuishin—nor that the blacksmith named Zen was already hidden, somewhere, in the deepest folds of my own memory.` },
                 '5': { title: "Chapter 5: The Abbot’s Beads, The God of the Mountain", videoCode: "Y1oXgLNnV3I", text: `I am the owl who dwells upon this mountain.
 A temple draws the virtuous and the wicked in equal measure. It is the Abbot's duty to smooth over such chaos.
 Today, those worn prayer beads of his will surely prove their worth.
@@ -1643,24 +1820,8 @@ I stared down at the raked patterns of the rock garden, turning his strange fate
 
 The Abbot paused there, and let out a long, deep breath.
 
-"One night, Ichinosuke came to me, trembling, and confessed everything. There had been no demon. There had only been the Mountain God. The necklace was not something he had taken—it was a curse that had been given to him.""
-` },
+"One night, Ichinosuke came to me, trembling, and confessed everything. There had been no demon. There had only been the Mountain God. The necklace was not something he had taken—it was a curse that had been given to him."` },
                 '6': { title: "Chapter 6: The Marrow of Truth, The Cage of Roles", videoCode: "nYY1XH4gOQQ", text: `[The Veranda of the Buddhist Hall]
-"I gave him the name 'Zuishin' as his Buddhist name. It means 'The Marrow of the Soul,' or 'The Core of Truth.' Lies in the mundane world—the Shaba—are simply human nature. I told him that once he entered the priesthood, such things would be unnecessary. I told him to cast them aside. I said, 'Ichinosuke is dead; from now on, live your Truth.' In the end, he settled by the side of those stone steps. He turned the mountain into forbidden ground, ensuring no soul ventured into its depths, as if he were feeding upon his own curse. And yet, I cannot believe that this... is his true 'Marrow'..."
-I merely listened. The Abbot’s profile looked profoundly sorrowful.
-"Zuishin claimed there was no demon—that the slaying was a lie. Yet he surely held that necklace in his hand. It was not a trinket that could be fashioned in a mere five days. Zuishin met someone, and he was granted that gift. No matter who it was he met, Zuishin fears the exposure of his lie from the bottom of his soul. That is why he clings to those stone steps. I do not understand why he fears it so much, but for him now, that lie is everything."
-Beyond the rock garden, the chirping of birds echoed from the mountain. The sinking sunlight was veiled by thin, spreading clouds like a shroud of silk, staining the sky a dull, hazy white. Zuishin, the man I thought I knew, and Zen-san, whom I had just met... Peering into a past I never knew, I felt a strange sensation, as if I had wandered into the heart of a massive cloud.
-"Lady Toki, you are young—a bird just now preparing to fly from the nest. If you venture too deep into the mountain, you may lose your way and never return. For now, keep my words only in your heart, and let them rest there."
-I gazed at the sky stretching beyond the mountain ridges, past the rock garden. I heard the Abbot’s words like an echo returning from a distant peak. What am I being shown? What is being demanded of me?
-
-[The Mountain Path: Below the Stone Steps]
-The sun dipped toward the west, and a cool breeze brushed past my neck as it wove through the trees. 
-As I descended the stone steps, the weight of the vegetables in my arms felt like they were trying to pull me back into the manifest world—the Utsushiyo.
-Zen-san’s field, the Abbot’s story... I felt as though I were wandering through a fairy tale. 
-But as I was about to leave the mountain path, the figure of Zuishin sitting by the side caught my eye. Usually, he would let me pass with a lighthearted remark. Today, he did not move a muscle. His hand rested on the hilt of his sword, just a breath away from drawing it. He exuded the sharp, piercing aura of the "Hero" who once faced an aberration.
-"...Master Zuishin?"
-His eyes stared intently into mine. There stood Ichinosuke—the samurai who had touched "something" in the past and descended the mountain.
-"...That face. It won't do. You’ve been completely overwhelmed by the spirit of the mountain."[The Veranda of the Buddhist Hall]
 
 "I gave him the name Zuishin as his Buddhist name. It means the marrow of the soul—the core of truth. The lies of the mundane world, the Shaba, are simply human nature. I told him that once he entered the priesthood, such things would no longer be needed. I told him to set them down. I said, Ichinosuke is dead; live now as your true self. And in the end, he settled by the side of those stone steps, turned the mountain into forbidden ground, and made certain no soul ventured into its depths—as though he meant to feed on his own curse forever. And yet I cannot believe that this... is truly his marrow."
 
@@ -1712,8 +1873,7 @@ I gave Zuishin a deep bow and hurried away. From the corner of my eye I saw him 
 
 I am the owl who dwells upon this mountain.
 In pushing Toki away, Zuishin's heart had, ironically, loosened more than it had in years. Because he tries so hard to live in truth, his lies have become a poison that eats at him from within. But lies, too, are a kind of human truth.
-The village is loud. The mountain stays silent. In these two worlds that were never meant to mingle—what will the young lady see?
-` },
+The village is loud. The mountain stays silent. In these two worlds that were never meant to mingle—what will the young lady see?` },
                 '7': { title: "Chapter 7: The Vitality of the Soil, The Shadow of the Vanguard", videoCode: "kuKv8z3jJ_8", text: `[The Honjin: The Village Inn]
 
 Amid the clanging of the alarm bell and the frantic upheaval through the town, we sat for a brief evening meal deep within the Honjin. Word had come that the vanguard, led by the elder retainer Kuroda-sama, would arrive that night—ahead of the main procession scheduled for the following morning. Around us, the maids' footsteps echoed through the corridors, and the meal laid before us was a humble one—soup and a single dish, simpler than usual.
@@ -1770,8 +1930,7 @@ She said no more. With movements efficient, but somehow strangely mechanical, sh
 
 Once the frantic work of receiving the vanguard had settled, and I finally lay down in my bed, a faint image flickered through my mind: a younger version of myself, wailing in a downpour. It was as hazy as the residue of some half-remembered dream, the memories before and after lost in mist. I tried to draw the thread of it closer, but the day's events washed over me, and I let it go. My body and mind craved nothing but rest.
 
-I had hardly settled before sleep pulled me under, as though I were sliding off the edge of waking. And yet, somewhere in the depths of that irresistible drowsiness, I thought I saw the back of Zen-san—standing still, facing forward, struck again and again by a cold and relentless rain.
-` },
+I had hardly settled before sleep pulled me under, as though I were sliding off the edge of waking. And yet, somewhere in the depths of that irresistible drowsiness, I thought I saw the back of Zen-san—standing still, facing forward, struck again and again by a cold and relentless rain.` },
                 '8': { title: "Chapter 8: The Scent of Iron, The Hunter’s Instinct", videoCode: "EzQZI-dl-nY", text: `I am the owl who dwells upon this mountain.
 Even when one means to hide it, the genuine can never be fully concealed. The weight of a blade. The depth of a vegetable's flavor. The fire kindled within a maiden's eyes. An old eagle who once soared over battlefields prefers the raw scent of truth to any dying prey.
 
@@ -1882,8 +2041,7 @@ I, too, hurried up the stone steps and turned onto the side path that led to Zen
 
 They bound him with rope, like some silent tool, and he offered no resistance at all. Only once did he turn his gaze toward the bushes where I hid, and smile, quietly.
 
-His back, as they led him away. The rain growing heavier with every step. The triumphant footsteps of Kuroda-sama and his men, returning toward the Honjin. I pressed my own hands over my mouth, and held back, with everything I had, the scream that had risen in my throat.
-` },
+His back, as they led him away. The rain growing heavier with every step. The triumphant footsteps of Kuroda-sama and his men, returning toward the Honjin. I pressed my own hands over my mouth, and held back, with everything I had, the scream that had risen in my throat.` },
                 '10': { title: "Chapter 10: The Fragmented Memory, The Prayer of Fire", videoCode: "s_KI4H2szZM", text: `I am the owl who dwells upon this mountain.
 By evening, ink-dark clouds had claimed the whole sky, and the rain that had briefly stopped returned as a soft, drifting mist.
 The town burned with the feverish energy of the Daimyo's procession, arrived just ahead of the downpour. This rain would likely strand them for at least a day. As if he had foreseen as much, Kuroda-sama had confined Zen to the town's forge and commanded him to strike iron. Surrounded by charcoal, steel, and guards holding bared blades, Zen sat at the center of it all. He had not even reached for his hammer—only stared through the small carved window at the rain, still as a stone that had forgotten how to speak.
@@ -2016,9 +2174,8 @@ I think Zuishin already knew. He knew that Zen-san would never give Kuroda-sama 
 
 "...Well. It's nearly time, I think. Not the drums of a festival, nor any flute song. The most extravagant sound in this world is about to be played."
 
-Zuishin murmured this to himself, his grip tightening around the sword at his hip.
-` },
-                '12': { title: "Chapter 12: The Sound of Awakening, The Crimson Truth", videoCode: "YQGrwTSgT64", text: `I am the owl who dwells upon this mountain.
+Zuishin murmured this to himself, his grip tightening around the sword at his hip.` },
+                '12': { title: "Chapter 12: The Sound of Awakening, The Crimson Truth", videoCode: "vmpE6XIVzng", text: `I am the owl who dwells upon this mountain.
 There is a law that stands above all other laws. However hard a man tries to bind life, the wind goes on blowing, the seed goes on bursting open, and hearts go on being drawn to one another. The hero now prepares to give himself over to the river of fate. The fire glows red. The iron glows white. The sound that will herald the end is about to be heard.
 
 [The Town Forge]
@@ -2089,9 +2246,8 @@ As Zuishin's breath grew shallow, Zen-san gathered him quietly into his arms. I 
 
 "...A good face, my lady. People—once they've cried enough—they smile again."
 
-The moment his life slipped away, the wind chimes by the window rang out, louder and clearer than they ever had before.
-` },
-                '13': { title: "Final Chapter: The Echo of Self-So-Ness", videoCode: "keE1qfQZtUk", text: `The storm had passed, and the post-station town settled back into its old tranquility, as though none of it had happened at all. Lord Kuroda was held to account for the grave violation of samurai law—drawing his blade and taking a life within a government-sanctioned space—and he ended his own life by his own hand. The desire that had tried to bend fate through unnatural force came, in the end, to a surprisingly quiet close.
+The moment his life slipped away, the wind chimes by the window rang out, louder and clearer than they ever had before.` },
+                '13': { title: "Final Chapter: The Echo of Self-So-Ness", videoCode: "w9MPb_ZFrpU", text: `The storm had passed, and the post-station town settled back into its old tranquility, as though none of it had happened at all. Lord Kuroda was held to account for the grave violation of samurai law—drawing his blade and taking a life within a government-sanctioned space—and he ended his own life by his own hand. The desire that had tried to bend fate through unnatural force came, in the end, to a surprisingly quiet close.
 
 [The Mountain Gate: At Sunset]
 
@@ -2108,8 +2264,7 @@ Toki nodded deeply at his words, and let her head rest softly against his should
 I am the owl who dwells upon this mountain.
 The one once called Zuishin. Or, before that, the town's hero, the boy named Ichinosuke.
 
-[The End]
-` }
+[The End]` }
 
             },
             mystic: {
@@ -2259,7 +2414,168 @@ The one once called Zuishin. Or, before that, the town's hero, the boy named Ich
             if (btnEn) { btnEn.style.background = 'var(--accent-color)'; btnEn.style.color = 'white'; }
             if (btnJa) { btnJa.style.background = '#111827'; btnJa.style.color = '#9ca3af'; }
         }
+
+        // 縦書きリーダーの起動ボタンは日本語表示時のみ見せる
+        document.querySelectorAll('.vr-trigger-btn').forEach(btn => {
+            btn.style.display = (lang === 'ja') ? 'inline-flex' : 'none';
+        });
+
         updateDisplay();
+    }
+
+    // 📖 縦書きページめくりリーダー
+    let vrCurrentPage = 0;
+    let vrTotalPages = 1;
+    let vrPageWidth = 0;
+    let vrTotalContentWidth = 0;
+    let vrResizeHandler = null;
+
+    function openVerticalReader(chapterNum) {
+        const chData = langData.ja.chapters[chapterNum];
+        if (!chData) return;
+
+        document.getElementById('vr-title').textContent = chData.title;
+        const contentEl = document.getElementById('vr-content');
+        contentEl.textContent = chData.text;
+
+        const overlay = document.getElementById('vr-overlay');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        vrCurrentPage = 0;
+        vrLayoutPages();
+
+        // ビューポートのリサイズに追従して再計算
+        if (vrResizeHandler) window.removeEventListener('resize', vrResizeHandler);
+        vrResizeHandler = () => vrLayoutPages(true);
+        window.addEventListener('resize', vrResizeHandler);
+
+        document.addEventListener('keydown', vrKeyHandler);
+
+        const viewport = document.getElementById('vr-viewport');
+        viewport.addEventListener('touchstart', vrTouchStart, { passive: true });
+        viewport.addEventListener('touchend', vrTouchEnd, { passive: true });
+    }
+
+    function closeVerticalReader() {
+        document.getElementById('vr-overlay').classList.remove('active');
+        document.body.style.overflow = '';
+        if (vrResizeHandler) window.removeEventListener('resize', vrResizeHandler);
+        document.removeEventListener('keydown', vrKeyHandler);
+
+        const viewport = document.getElementById('vr-viewport');
+        viewport.removeEventListener('touchstart', vrTouchStart);
+        viewport.removeEventListener('touchend', vrTouchEnd);
+    }
+
+    function vrKeyHandler(e) {
+        if (e.key === 'Escape') closeVerticalReader();
+        // ページ送りは左方向＝次のページ
+        else if (e.key === 'ArrowLeft') vrNextPage();
+        else if (e.key === 'ArrowRight') vrPrevPage();
+    }
+
+    function vrLayoutPages(keepPage) {
+        const viewport = document.getElementById('vr-viewport');
+        const contentEl = document.getElementById('vr-content');
+        if (!viewport || !contentEl) return;
+
+        const targetPage = keepPage ? vrCurrentPage : 0;
+
+        // 一旦リセットしてから正確な寸法を測定する
+        contentEl.style.transition = 'none';
+        contentEl.style.transform = 'none';
+        contentEl.style.columnWidth = '';
+        contentEl.style.width = 'auto';
+
+        // viewport自体のpaddingを差し引いた「実際にテキストが使える幅」を基準にする
+        const vpStyle = getComputedStyle(viewport);
+        const padL = parseFloat(vpStyle.paddingLeft) || 0;
+        const padR = parseFloat(vpStyle.paddingRight) || 0;
+        vrPageWidth = viewport.clientWidth - padL - padR;
+        contentEl.style.columnWidth = vrPageWidth + 'px';
+
+        // 自然な必要幅を測定してページ数を算出
+        // ※ Math.round だと最後のページの内容量が半分未満の場合に切り捨てられ、
+        //    文末が表示されなくなるため、必ず ceil で余りのページも含める
+        const naturalWidth = contentEl.getBoundingClientRect().width;
+        vrTotalPages = Math.max(1, Math.ceil((naturalWidth - 1) / vrPageWidth));
+        vrCurrentPage = Math.min(targetPage, vrTotalPages - 1);
+
+        // 列幅は「目安」でしかなく、ブラウザが列数を最適化しようとして
+        // 実際の列幅が vrPageWidth からズレることがあり、それが本文の欠けの原因になる。
+        // 幅をページ数ぴったりの倍数に固定して、列幅のブレを完全になくす。
+        vrTotalContentWidth = vrTotalPages * vrPageWidth;
+        contentEl.style.width = vrTotalContentWidth + 'px';
+
+        vrRenderPage(true);
+    }
+
+    function vrNextPage() {
+        if (vrCurrentPage >= vrTotalPages - 1) return;
+        vrCurrentPage++;
+        vrRenderPage();
+    }
+
+    function vrPrevPage() {
+        if (vrCurrentPage <= 0) return;
+        vrCurrentPage--;
+        vrRenderPage();
+    }
+
+    // 各ページはコンテンツ全体の右端から数えた位置に固定配置されているため、
+    // transform で該当ページを表示位置へ移動する（スクロール方向のブレを避けるため）
+    function vrRenderPage(instant) {
+        const contentEl = document.getElementById('vr-content');
+        if (!contentEl) return;
+
+        // 実測した全体幅を基準にすることで、ページ数の丸めとのズレによる文字欠けを防ぐ
+        const offset = (vrCurrentPage + 1) * vrPageWidth - vrTotalContentWidth;
+
+        if (instant) {
+            contentEl.style.transition = 'none';
+            contentEl.style.transform = `translateX(${offset}px)`;
+            // 強制リフローの後に通常のトランジションへ戻す
+            void contentEl.offsetHeight;
+            contentEl.style.transition = '';
+        } else {
+            // CSSのtransitionでスライドさせる
+            contentEl.style.transform = `translateX(${offset}px)`;
+        }
+
+        vrUpdateNavState();
+    }
+
+    function vrUpdateNavState() {
+        const prevBtn = document.getElementById('vr-prev-btn');
+        const nextBtn = document.getElementById('vr-next-btn');
+        const indicator = document.getElementById('vr-page-indicator');
+        if (prevBtn) prevBtn.disabled = (vrCurrentPage <= 0);
+        if (nextBtn) nextBtn.disabled = (vrCurrentPage >= vrTotalPages - 1);
+        if (indicator) indicator.textContent = `${vrCurrentPage + 1} / ${vrTotalPages}`;
+    }
+
+    // 👆 スワイプ対応（左スワイプ＝次のページ、右スワイプ＝前のページ）
+    let vrTouchStartX = null;
+    let vrTouchStartY = null;
+
+    function vrTouchStart(e) {
+        vrTouchStartX = e.touches[0].clientX;
+        vrTouchStartY = e.touches[0].clientY;
+    }
+
+    function vrTouchEnd(e) {
+        if (vrTouchStartX === null) return;
+        const dx = e.changedTouches[0].clientX - vrTouchStartX;
+        const dy = e.changedTouches[0].clientY - vrTouchStartY;
+        vrTouchStartX = null;
+        vrTouchStartY = null;
+
+        // 縦方向の動きが大きい場合はスワイプとみなさない
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+
+        if (dx < 0) vrPrevPage();
+        else vrNextPage();
     }
 
     // 🚀 初期起動設定
