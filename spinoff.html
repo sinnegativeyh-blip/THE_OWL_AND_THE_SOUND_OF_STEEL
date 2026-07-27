@@ -185,6 +185,158 @@
             background-color: #111827;
             border-color: #4b5563;
         }
+
+        /* 📖 縦書きページめくりリーダー */
+        .vr-trigger-wrap {
+            display: flex;
+            justify-content: flex-end;
+            margin: -10px 0 16px 0;
+        }
+
+        .vr-trigger-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            background-color: #111827;
+            color: #9ca3af;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .vr-trigger-btn:hover {
+            color: #ffffff;
+            border-color: var(--accent-color);
+        }
+
+        .vr-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-color);
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .vr-overlay.active {
+            display: flex;
+        }
+
+        .vr-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .vr-title {
+            color: #ffffff;
+            font-size: 1.05rem;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+
+        .vr-close-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: #9ca3af;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .vr-close-btn:hover {
+            color: #ffffff;
+            border-color: var(--accent-color);
+        }
+
+        .vr-stage {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 24px;
+            min-height: 0;
+        }
+
+        .vr-nav-btn {
+            background-color: #111827;
+            border: 1px solid var(--border-color);
+            color: #9ca3af;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            line-height: 1;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .vr-nav-btn:hover:not(:disabled) {
+            color: #ffffff;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .vr-nav-btn:disabled {
+            opacity: 0.25;
+            cursor: default;
+        }
+
+        .vr-viewport {
+            overflow: hidden;
+            height: 100%;
+            max-width: 860px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+            padding: 44px 34px;
+            touch-action: pan-y;
+        }
+
+        .vr-content {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            height: 100%;
+            column-gap: 0;
+            column-fill: auto;
+            font-size: 1.15rem;
+            line-height: 2.15;
+            letter-spacing: 0.04em;
+            color: var(--text-color);
+            white-space: pre-wrap;
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "Shippori Mincho", serif;
+            transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .vr-footer {
+            text-align: center;
+            padding: 14px;
+            color: #64748b;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 640px) {
+            .vr-nav-btn { width: 38px; height: 38px; font-size: 1.2rem; }
+            .vr-content { font-size: 1.05rem; }
+            .vr-viewport { padding: 28px 18px; }
+            .vr-stage { padding: 14px; gap: 8px; }
+        }
     </style>
 </head>
 <body>
@@ -213,12 +365,28 @@
 
     <section class="content-section">
         <h2 id="story-title" class="story-title"></h2>
+        <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" id="vr-trigger" onclick="openVerticalReader()">📖 縦書きで読む</button></div>
         <div id="story-text" class="story-text"></div>
     </section>
 
     <div class="back-button-container">
         <a href="index.html" id="back-btn" class="back-btn">本編へ戻る</a>
     </div>
+</div>
+
+<div class="vr-overlay" id="vr-overlay">
+    <div class="vr-header">
+        <span class="vr-title" id="vr-title"></span>
+        <button class="vr-close-btn" onclick="closeVerticalReader()">✕ 閉じる</button>
+    </div>
+    <div class="vr-stage">
+        <button class="vr-nav-btn" id="vr-next-btn" onclick="vrNextPage()" aria-label="次のページ">‹</button>
+        <div class="vr-viewport" id="vr-viewport">
+            <div class="vr-content" id="vr-content"></div>
+        </div>
+        <button class="vr-nav-btn" id="vr-prev-btn" onclick="vrPrevPage()" aria-label="前のページ">›</button>
+    </div>
+    <div class="vr-footer" id="vr-page-indicator"></div>
 </div>
 
 <script>
@@ -911,6 +1079,11 @@ And perhaps, the last trial I must face before all lies come to their end.`
         document.getElementById('btn-ja').classList.remove('active');
         document.getElementById('btn-en').classList.remove('active');
         document.getElementById(`btn-${lang}`).classList.add('active');
+
+        // 縦書きリーダーの起動ボタンは日本語表示時のみ見せる
+        document.querySelectorAll('.vr-trigger-btn').forEach(btn => {
+            btn.style.display = (lang === 'ja') ? 'inline-flex' : 'none';
+        });
         
         updateContent();
     }
@@ -919,6 +1092,146 @@ And perhaps, the last trial I must face before all lies come to their end.`
     window.onload = function() {
         updateContent();
     };
+
+    // 📖 縦書きページめくりリーダー
+    let vrCurrentPage = 0;
+    let vrTotalPages = 1;
+    let vrPageWidth = 0;
+    let vrTotalContentWidth = 0;
+    let vrResizeHandler = null;
+
+    function openVerticalReader() {
+        const story = langData.ja.stories[currentTab];
+        if (!story) return;
+
+        document.getElementById('vr-title').textContent = story.title;
+        const contentEl = document.getElementById('vr-content');
+        contentEl.textContent = story.text;
+
+        const overlay = document.getElementById('vr-overlay');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        vrCurrentPage = 0;
+        vrLayoutPages();
+
+        if (vrResizeHandler) window.removeEventListener('resize', vrResizeHandler);
+        vrResizeHandler = () => vrLayoutPages(true);
+        window.addEventListener('resize', vrResizeHandler);
+
+        document.addEventListener('keydown', vrKeyHandler);
+
+        const viewport = document.getElementById('vr-viewport');
+        viewport.addEventListener('touchstart', vrTouchStart, { passive: true });
+        viewport.addEventListener('touchend', vrTouchEnd, { passive: true });
+    }
+
+    function closeVerticalReader() {
+        document.getElementById('vr-overlay').classList.remove('active');
+        document.body.style.overflow = '';
+        if (vrResizeHandler) window.removeEventListener('resize', vrResizeHandler);
+        document.removeEventListener('keydown', vrKeyHandler);
+
+        const viewport = document.getElementById('vr-viewport');
+        viewport.removeEventListener('touchstart', vrTouchStart);
+        viewport.removeEventListener('touchend', vrTouchEnd);
+    }
+
+    function vrKeyHandler(e) {
+        if (e.key === 'Escape') closeVerticalReader();
+        // ページ送りは左方向＝次のページ
+        else if (e.key === 'ArrowLeft') vrNextPage();
+        else if (e.key === 'ArrowRight') vrPrevPage();
+    }
+
+    function vrLayoutPages(keepPage) {
+        const viewport = document.getElementById('vr-viewport');
+        const contentEl = document.getElementById('vr-content');
+        if (!viewport || !contentEl) return;
+
+        const targetPage = keepPage ? vrCurrentPage : 0;
+
+        contentEl.style.transition = 'none';
+        contentEl.style.transform = 'none';
+        contentEl.style.columnWidth = '';
+        contentEl.style.width = 'auto';
+
+        const vpStyle = getComputedStyle(viewport);
+        const padL = parseFloat(vpStyle.paddingLeft) || 0;
+        const padR = parseFloat(vpStyle.paddingRight) || 0;
+        vrPageWidth = viewport.clientWidth - padL - padR;
+        contentEl.style.columnWidth = vrPageWidth + 'px';
+
+        const naturalWidth = contentEl.getBoundingClientRect().width;
+        vrTotalPages = Math.max(1, Math.ceil((naturalWidth - 1) / vrPageWidth));
+        vrCurrentPage = Math.min(targetPage, vrTotalPages - 1);
+
+        vrTotalContentWidth = vrTotalPages * vrPageWidth;
+        contentEl.style.width = vrTotalContentWidth + 'px';
+
+        vrRenderPage(true);
+    }
+
+    function vrNextPage() {
+        if (vrCurrentPage >= vrTotalPages - 1) return;
+        vrCurrentPage++;
+        vrRenderPage();
+    }
+
+    function vrPrevPage() {
+        if (vrCurrentPage <= 0) return;
+        vrCurrentPage--;
+        vrRenderPage();
+    }
+
+    function vrRenderPage(instant) {
+        const contentEl = document.getElementById('vr-content');
+        if (!contentEl) return;
+
+        const offset = (vrCurrentPage + 1) * vrPageWidth - vrTotalContentWidth;
+
+        if (instant) {
+            contentEl.style.transition = 'none';
+            contentEl.style.transform = `translateX(${offset}px)`;
+            void contentEl.offsetHeight;
+            contentEl.style.transition = '';
+        } else {
+            contentEl.style.transform = `translateX(${offset}px)`;
+        }
+
+        vrUpdateNavState();
+    }
+
+    function vrUpdateNavState() {
+        const prevBtn = document.getElementById('vr-prev-btn');
+        const nextBtn = document.getElementById('vr-next-btn');
+        const indicator = document.getElementById('vr-page-indicator');
+        if (prevBtn) prevBtn.disabled = (vrCurrentPage <= 0);
+        if (nextBtn) nextBtn.disabled = (vrCurrentPage >= vrTotalPages - 1);
+        if (indicator) indicator.textContent = `${vrCurrentPage + 1} / ${vrTotalPages}`;
+    }
+
+    // 👆 スワイプ対応（左スワイプ＝次のページ、右スワイプ＝前のページ）
+    let vrTouchStartX = null;
+    let vrTouchStartY = null;
+
+    function vrTouchStart(e) {
+        vrTouchStartX = e.touches[0].clientX;
+        vrTouchStartY = e.touches[0].clientY;
+    }
+
+    function vrTouchEnd(e) {
+        if (vrTouchStartX === null) return;
+        const dx = e.changedTouches[0].clientX - vrTouchStartX;
+        const dy = e.changedTouches[0].clientY - vrTouchStartY;
+        vrTouchStartX = null;
+        vrTouchStartY = null;
+
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+
+        if (dx < 0) vrPrevPage();
+        else vrNextPage();
+    }
 </script>
 
 </body>
