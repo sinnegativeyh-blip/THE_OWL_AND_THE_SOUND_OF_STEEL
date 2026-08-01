@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ふくろうはあの鋼の音を聞いたか - 特設ページ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@600;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --text-color: #cbd5e1;
-            --accent-color: #ff5722;
-            --accent-glow: rgba(255, 87, 34, 0.4);
-            --card-bg: #1a202c;
-            --border-color: #2d3748;
+            --bg-color: #0c0b0a;
+            --text-color: #d8d2c8;
+            --accent-color: #c1440e;
+            --accent-glow: rgba(193, 68, 14, 0.45);
+            --card-bg: #1a1613;
+            --border-color: #33291f;
             --mystic-color: #8b5cf6;
             --mystic-glow: rgba(139, 92, 246, 0.4);
+            --panel-bg: #17130f;
+            --muted-text: #9c8f80;
         }
 
         body {
@@ -28,8 +32,11 @@
 
         header {
             text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(to bottom, #111827, var(--bg-color));
+            padding: 70px 20px 50px;
+            background: linear-gradient(to bottom, #171310, var(--bg-color));
+            background-image:
+                linear-gradient(to bottom, #171310, var(--bg-color)),
+                repeating-linear-gradient(180deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -40,29 +47,50 @@
         }
 
         h1 {
-            font-size: 2.2rem;
-            color: #ffffff;
+            font-family: "Zen Old Mincho", serif;
+            font-weight: 900;
+            font-size: 2.3rem;
+            color: #f3ede4;
             margin: 0 0 10px 0;
-            letter-spacing: 0.05em;
-            font-weight: 700;
+            letter-spacing: 0.06em;
         }
 
         .subtitle {
-            font-size: 1.1rem;
-            color: #9ca3af;
-            margin: 0;
+            font-size: 1.05rem;
+            color: var(--muted-text);
+            margin: 0 0 30px 0;
+            letter-spacing: 0.05em;
+        }
+
+        .heatline {
+            height: 3px;
+            max-width: 420px;
+            margin: 18px auto 30px;
+            background: linear-gradient(90deg, transparent, var(--accent-color) 20%, #ffb37a 50%, var(--accent-color) 80%, transparent);
+            box-shadow: 0 0 16px 2px var(--accent-glow);
+            border-radius: 2px;
+            animation: heatline-pulse 3.2s ease-in-out infinite;
+        }
+
+        @keyframes heatline-pulse {
+            0%, 100% { opacity: 0.75; }
+            50% { opacity: 1; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .heatline { animation: none; }
         }
 
         .lang-switch {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-top: 30px;
+            margin-top: 0;
         }
 
         .lang-btn {
-            background-color: #111827;
-            color: #9ca3af;
+            background-color: var(--panel-bg);
+            color: var(--muted-text);
             border: 1px solid var(--border-color);
             padding: 8px 20px;
             border-radius: 20px;
@@ -89,40 +117,79 @@
             margin-bottom: 40px;
         }
 
-        .tab-nav {
+        .chapter-select-wrap {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            background-color: #111827;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            max-width: 100%;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 480px;
         }
 
-        .tab-btn {
-            background: none;
-            border: none;
-            color: #9ca3af;
-            padding: 10px 16px;
-            border-radius: 6px;
-            cursor: pointer;
+        .chapter-select-label {
+            font-size: 0.8rem;
+            color: #9c8f80;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .chapter-select-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .chapter-select {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 100%;
+            background-color: #17130f;
+            color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 44px 14px 18px;
             font-size: 0.95rem;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.2s ease;
-            white-space: nowrap;
         }
 
-        .tab-btn:hover {
+        .chapter-select:hover,
+        .chapter-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 12px var(--accent-glow);
+            outline: none;
+        }
+
+        .chapter-select option {
+            background-color: #17130f;
             color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.05);
         }
 
-        .tab-btn.active {
+        .chapter-select-arrow {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-color);
+            pointer-events: none;
+            font-size: 0.9rem;
+        }
+
+        .return-btn {
             background-color: var(--accent-color);
             color: #ffffff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
             box-shadow: 0 0 12px var(--accent-glow);
+            transition: all 0.2s ease;
+        }
+
+        .return-btn:hover {
+            filter: brightness(1.1);
         }
 
         .content-section {
@@ -134,8 +201,10 @@
         }
 
         .story-title {
-            font-size: 1.8rem;
-            color: #ffffff;
+            font-family: "Zen Old Mincho", serif;
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: #f3ede4;
             margin-top: 0;
             margin-bottom: 30px;
             padding-bottom: 15px;
@@ -144,7 +213,7 @@
         }
 
         .password-overlay {
-            background-color: #111827;
+            background-color: #17130f;
             border: 1px dashed var(--border-color);
             border-radius: 8px;
             padding: 40px 20px;
@@ -255,7 +324,7 @@
             color: var(--text-color);
             white-space: pre-wrap;
             word-wrap: break-word;
-            background-color: #111827;
+            background-color: #17130f;
             padding: 30px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
@@ -280,7 +349,7 @@
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: #64748b;
+            color: #7a6f60;
             font-size: 0.9rem;
             border-top: 1px solid var(--border-color);
             margin-top: 60px;
@@ -297,8 +366,8 @@
             display: none;
             align-items: center;
             gap: 6px;
-            background-color: #111827;
-            color: #9ca3af;
+            background-color: #17130f;
+            color: #9c8f80;
             border: 1px solid var(--border-color);
             padding: 8px 16px;
             border-radius: 20px;
@@ -336,16 +405,17 @@
         }
 
         .vr-title {
-            color: #ffffff;
+            font-family: "Zen Old Mincho", serif;
+            color: #f3ede4;
             font-size: 1.05rem;
             letter-spacing: 0.05em;
-            font-weight: 700;
+            font-weight: 900;
         }
 
         .vr-close-btn {
             background: none;
             border: 1px solid var(--border-color);
-            color: #9ca3af;
+            color: #9c8f80;
             padding: 8px 18px;
             border-radius: 20px;
             cursor: pointer;
@@ -370,9 +440,9 @@
         }
 
         .vr-nav-btn {
-            background-color: #111827;
+            background-color: #17130f;
             border: 1px solid var(--border-color);
-            color: #9ca3af;
+            color: #9c8f80;
             width: 46px;
             height: 46px;
             border-radius: 50%;
@@ -426,7 +496,7 @@
         .vr-footer {
             text-align: center;
             padding: 14px;
-            color: #64748b;
+            color: #7a6f60;
             font-size: 0.85rem;
             flex-shrink: 0;
         }
@@ -443,7 +513,7 @@
 
 <header>
     <h1 data-ja="ふくろうはあの鋼の音を聞いたか" data-en="The Owl and the Sound of Steel">ふくろうはあの鋼の音を聞いたか</h1>
-    <p class="subtitle" data-ja="各話 特設視聴・閲覧室" data-en="Special Chapter Viewing Room">各話 特設視聴・閲覧室</p>
+    <div class="heatline"></div>
     <div class="lang-switch">
         <button id="btn-ja" class="lang-btn" onclick="switchLanguage('ja')">日本語</button>
         <button id="btn-en" class="lang-btn" onclick="switchLanguage('en')">English</button>
@@ -452,21 +522,27 @@
 
 <main>
     <div class="nav-container" id="main-nav">
-        <nav class="tab-nav">
-            <button class="tab-btn" onclick="switchTab('1')" data-ja="第一話" data-en="Ch 1">第一話</button>
-            <button class="tab-btn" onclick="switchTab('2')" data-ja="第二話" data-en="Ch 2">第二話</button>
-            <button class="tab-btn" onclick="switchTab('3')" data-ja="第三話" data-en="Ch 3">第三話</button>
-            <button class="tab-btn" onclick="switchTab('4')" data-ja="第四話" data-en="Ch 4">第四話</button>
-            <button class="tab-btn" onclick="switchTab('5')" data-ja="第五話" data-en="Ch 5">第五話</button>
-            <button class="tab-btn" onclick="switchTab('6')" data-ja="第六話" data-en="Ch 6">第六話</button>
-            <button class="tab-btn" onclick="switchTab('7')" data-ja="第七話" data-en="Ch 7">第七話</button>
-            <button class="tab-btn" onclick="switchTab('8')" data-ja="第八話" data-en="Ch 8">第八話</button>
-            <button class="tab-btn" onclick="switchTab('9')" data-ja="第九話" data-en="Ch 9">第九話</button>
-            <button class="tab-btn" onclick="switchTab('10')" data-ja="第十話" data-en="Ch 10">第十話</button>
-            <button class="tab-btn" onclick="switchTab('11')" data-ja="第十一話" data-en="Ch 11">第十一話</button>
-            <button class="tab-btn" onclick="switchTab('12')" data-ja="第十二話" data-en="Ch 12">第十二話</button>
-            <button class="tab-btn" onclick="switchTab('13')" data-ja="最終話" data-en="Final">最終話</button>
-        </nav>
+        <div class="chapter-select-wrap">
+            <span class="chapter-select-label" data-ja="話を選ぶ" data-en="Select a Chapter">話を選ぶ</span>
+            <div class="chapter-select-box">
+                <select id="chapter-select" class="chapter-select" onchange="switchTab(this.value)">
+                    <option value="1" data-ja="第一話：暁（あかつき）の鉄、露（つゆ）の境界" data-en="Chapter 1: The Iron of Dawn, The Boundary of Dew">第一話：暁（あかつき）の鉄、露（つゆ）の境界</option>
+                    <option value="2" data-ja="第二話：視線の楔（くさび）" data-en="Chapter 2: The Fruitless Bloom, The Spark of Awakening">第二話：視線の楔（くさび）</option>
+                    <option value="3" data-ja="第三話：名もなき高鳴り" data-en="Chapter 3: The Faded Backdrop, The Only Truth">第三話：名もなき高鳴り</option>
+                    <option value="4" data-ja="第四話：野の畑、目覚める呼吸" data-en="Chapter 4: The Sea of Grass, The Breath of the Earth">第四話：野の畑、目覚める呼吸</option>
+                    <option value="5" data-ja="第五話：境界の毒、英雄の残響" data-en="Chapter 5: The Abbot’s Beads, The God of the Mountain">第五話：境界の毒、英雄の残響</option>
+                    <option value="6" data-ja="第六話：境界の残照、英雄の疼（うず）き" data-en="Chapter 6: The Marrow of Truth, The Cage of Roles">第六話：境界の残照、英雄の疼（うず）き</option>
+                    <option value="7" data-ja="第七話：供儀（くぎ）の食卓、黒き影の胎動" data-en="Chapter 7: The Vitality of the Soil, The Shadow of the Vanguard">第七話：供儀（くぎ）の食卓、黒き影の胎動</option>
+                    <option value="8" data-ja="第八話：錆びた闘心、剥き出し（むきだし）の牙" data-en="Chapter 8: The Scent of Iron, The Hunter’s Instinct">第八話：錆びた闘心、剥き出し（むきだし）の牙</option>
+                    <option value="9" data-ja="第九話：英雄の虚像、剥がれ落ちる鱗（うろこ）" data-en="Chapter 9: The Pinwheel of Lies, The Smile in the Rain">第九話：英雄の虚像、剥がれ落ちる鱗（うろこ）</option>
+                    <option value="10" data-ja="第十話：雨の匂い、蘇る（よみがえる）記憶の音" data-en="Chapter 10: The Fragmented Memory, The Prayer of Fire">第十話：雨の匂い、蘇る（よみがえる）記憶の音</option>
+                    <option value="11" data-ja="第十一話：自（おの）ずから然（しか）らむる法" data-en="Chapter 11: The Law of Self-So-Ness, The Sound of the Breaking Storm">第十一話：自（おの）ずから然（しか）らむる法</option>
+                    <option value="12" data-ja="第十二話：鋼の煌めき（きらめき）、鎮魂の響き" data-en="Chapter 12: The Sound of Awakening, The Crimson Truth">第十二話：鋼の煌めき（きらめき）、鎮魂の響き</option>
+                    <option value="13" data-ja="最終話：現（うつつ）の世の片隅にて" data-en="Final Chapter: The Echo of Self-So-Ness">最終話：現（うつつ）の世の片隅にて</option>
+                </select>
+                <span class="chapter-select-arrow" aria-hidden="true">▾</span>
+            </div>
+        </div>
     </div>
 
     <section id="section-1" class="content-section" style="display:none;">
@@ -637,10 +713,10 @@
             <h3 class="sub-section-title sub-story-title"></h3>
             <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('9')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-9"></div>
-            <div style="margin-top: 50px; padding: 25px; background: linear-gradient(135deg, #1e1b4b, #111827); border: 1px solid #3b82f6; border-radius: 8px; text-align: center; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);">
-                <h4 style="margin: 0 0 10px 0; color: #3b82f6; font-size: 1.1rem; letter-spacing: 0.1em;" data-ja="【特別公開】一之介スピンオフ物語" data-en="THE BOY AND THE DAGGER">【特別公開】一之介スピンオフ物語</h4>
-                <p style="margin: 0 0 20px 0; font-size: 0.9rem; color: #9ca3af; line-height: 1.6;" data-ja="里では一之介と呼ばれる男、かつて鬼退治の英雄と讃えられた男の、もう一つの足跡――。" data-en="Behind The one who was once called Zuishin, or the hero of the town named Ichinosuke.">里では一之介と呼ばれる男、かつて鬼退治の英雄と讃えられた男の、もう一つの足跡――。</p>
-                <a href="spinoff.html" style="display: inline-block; background-color: #3b82f6; color: #ffffff; padding: 12px 30px; border-radius: 4px; font-weight: bold; text-decoration: none; font-size: 0.95rem; letter-spacing: 0.1em;" data-ja="スピンオフ（全四話）を読む" data-en="go to stories">スピンオフ（全四話）を読む</a>
+            <div style="margin-top: 50px; padding: 25px; background: linear-gradient(135deg, #1a2430, #17130f); border: 1px solid #5b8fa8; border-radius: 8px; text-align: center; box-shadow: 0 0 15px rgba(91, 143, 168, 0.25);">
+                <h4 style="margin: 0 0 10px 0; color: #5b8fa8; font-size: 1.1rem; letter-spacing: 0.1em;" data-ja="【特別公開】一之介スピンオフ物語" data-en="THE BOY AND THE DAGGER">【特別公開】一之介スピンオフ物語</h4>
+                <p style="margin: 0 0 20px 0; font-size: 0.9rem; color: #9c8f80; line-height: 1.6;" data-ja="里では一之介と呼ばれる男、かつて鬼退治の英雄と讃えられた男の、もう一つの足跡――。" data-en="Behind The one who was once called Zuishin, or the hero of the town named Ichinosuke.">里では一之介と呼ばれる男、かつて鬼退治の英雄と讃えられた男の、もう一つの足跡――。</p>
+                <a href="spinoff.html" style="display: inline-block; background-color: #5b8fa8; color: #ffffff; padding: 12px 30px; border-radius: 4px; font-weight: bold; text-decoration: none; font-size: 0.95rem; letter-spacing: 0.1em;" data-ja="スピンオフ（全四話）を読む" data-en="go to stories">スピンオフ（全四話）を読む</a>
             </div>
         </div>
     </section>
@@ -719,9 +795,9 @@
             <div class="vr-trigger-wrap"><button class="vr-trigger-btn ja-only" onclick="openVerticalReader('13')">📖 縦書きで読む</button></div>
             <div class="story-text" id="text-13"></div>
 
-            <div style="margin-top: 50px; padding: 25px; background: linear-gradient(135deg, #1e1b4b, #111827); border: 1px solid var(--mystic-color); border-radius: 8px; text-align: center; box-shadow: 0 0 15px var(--mystic-glow);">
+            <div style="margin-top: 50px; padding: 25px; background: linear-gradient(135deg, #1a2430, #17130f); border: 1px solid var(--mystic-color); border-radius: 8px; text-align: center; box-shadow: 0 0 15px var(--mystic-glow);">
                 <h4 style="margin: 0 0 10px 0; color: #a78bfa; font-size: 1.1rem; letter-spacing: 0.1em;" data-ja="【特別閲覧室】山の上の小さなすみか" data-en="The Sanctuary on the Hill">【特別閲覧室】山の上の小さなすみか</h4>
-                <p style="margin: 0 0 20px 0; font-size: 0.9rem; color: #9ca3af; line-height: 1.6;" data-ja="変わらず山の上にあった、あの小さなすみかの記憶――。動画と絵本で巡る特別な部屋。" data-en="The memory of that small home upon the hill. A special room with video and picture book.">変わらず山の上にあった、あの小さなすみかの記憶――。動画と絵本で巡る特別な部屋。</p>
+                <p style="margin: 0 0 20px 0; font-size: 0.9rem; color: #9c8f80; line-height: 1.6;" data-ja="変わらず山の上にあった、あの小さなすみかの記憶――。動画と絵本で巡る特別な部屋。" data-en="The memory of that small home upon the hill. A special room with video and picture book.">変わらず山の上にあった、あの小さなすみかの記憶――。動画と絵本で巡る特別な部屋。</p>
                 <button onclick="goToMystic()" style="display: inline-block; background-color: var(--mystic-color); color: #ffffff; padding: 12px 30px; border-radius: 4px; font-weight: bold; border: none; cursor: pointer; font-size: 0.95rem; letter-spacing: 0.1em; box-shadow: 0 0 8px var(--mystic-glow);" data-ja="山の上の小さなすみかへ進む" data-en="Go to the Sanctuary">山の上の小さなすみかへ進む</button>
             </div>
 
@@ -739,7 +815,7 @@
             <div class="error-message" id="error-mystic"></div>
         </div>
         <div style="margin-top: 40px; text-align: center;">
-            <button onclick="returnToMain()" class="tab-btn active" id="return-btn-text"></button>
+            <button onclick="returnToMain()" class="return-btn" id="return-btn-text"></button>
         </div>
     </section>
 </main>
@@ -2330,12 +2406,7 @@ The one once called Zuishin. Or, before that, the town's hero, the boy named Ich
             target.classList.add('active');
         }
 
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => {
-            const attr = btn.getAttribute('onclick');
-            return attr && attr.includes(`'${chapterNum}'`);
-        });
-        if(activeBtn) activeBtn.classList.add('active');
+        document.getElementById('chapter-select').value = chapterNum;
 
         // パスワード不要（1話など）の場合は最初から中身を開く
         if(configData.passwords[chapterNum] === '') {
@@ -2409,10 +2480,10 @@ The one once called Zuishin. Or, before that, the town's hero, the boy named Ich
         const btnEn = document.getElementById('btn-en');
         if(lang === 'ja') {
             if (btnJa) { btnJa.style.background = 'var(--accent-color)'; btnJa.style.color = 'white'; }
-            if (btnEn) { btnEn.style.background = '#111827'; btnEn.style.color = '#9ca3af'; }
+            if (btnEn) { btnEn.style.background = '#17130f'; btnEn.style.color = '#9c8f80'; }
         } else {
             if (btnEn) { btnEn.style.background = 'var(--accent-color)'; btnEn.style.color = 'white'; }
-            if (btnJa) { btnJa.style.background = '#111827'; btnJa.style.color = '#9ca3af'; }
+            if (btnJa) { btnJa.style.background = '#17130f'; btnJa.style.color = '#9c8f80'; }
         }
 
         // 縦書きリーダーの起動ボタンは日本語表示時のみ見せる

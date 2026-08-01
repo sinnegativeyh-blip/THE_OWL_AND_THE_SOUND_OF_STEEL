@@ -35,31 +35,39 @@
 
         /* 言語切り替えボタンのスタイル */
         .lang-switcher {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             display: flex;
-            gap: 5px;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
             background-color: #111827;
-            padding: 4px;
-            border-radius: 6px;
+            padding: 6px;
+            border-radius: 24px;
             border: 1px solid var(--border-color);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .lang-btn {
-            background: none;
-            border: none;
+            background-color: #111827;
+            border: 1px solid var(--border-color);
             color: #9ca3af;
-            padding: 6px 12px;
-            font-size: 0.8rem;
+            padding: 8px 20px;
+            font-size: 0.85rem;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 20px;
             transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            color: #ffffff;
+            border-color: var(--accent-color);
         }
 
         .lang-btn.active {
             background-color: var(--accent-color);
+            border-color: var(--accent-color);
             color: #ffffff;
             box-shadow: 0 0 8px var(--accent-glow);
         }
@@ -342,12 +350,12 @@
 <body>
 
 <header>
-    <div class="lang-switcher">
-        <button id="btn-ja" class="lang-btn active" onclick="setLanguage('ja')">JA</button>
-        <button id="btn-en" class="lang-btn" onclick="setLanguage('en')">EN</button>
-    </div>
     <h1 id="header-title">一之介スピンオフ物語</h1>
     <p id="header-subtitle">山門の番人、あるいはかつて英雄と呼ばれた男の軌跡</p>
+    <div class="lang-switcher">
+        <button id="btn-ja" class="lang-btn active" onclick="setLanguage('ja')">日本語</button>
+        <button id="btn-en" class="lang-btn" onclick="setLanguage('en')">ENGLISH</button>
+    </div>
 </header>
 
 <div class="container">
@@ -362,6 +370,10 @@
         <button id="tab3" class="tab-btn" onclick="switchTab('3')">第三話</button>
         <button id="tab4" class="tab-btn" onclick="switchTab('4')">第四話</button>
     </nav>
+
+    <div class="back-button-container">
+        <a href="index.html" id="back-btn-mid" class="back-btn">本編へ戻る</a>
+    </div>
 
     <section class="content-section">
         <h2 id="story-title" class="story-title"></h2>
@@ -1043,6 +1055,7 @@ And perhaps, the last trial I must face before all lies come to their end.`
         document.getElementById('header-title').textContent = data.title;
         document.getElementById('header-subtitle').textContent = data.subtitle;
         document.getElementById('back-btn').textContent = data.backBtn;
+        document.getElementById('back-btn-mid').textContent = data.backBtn;
         
         // タブメニューの文字更新
         for (let i = 1; i <= 4; i++) {
